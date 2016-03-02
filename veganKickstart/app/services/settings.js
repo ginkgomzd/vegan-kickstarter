@@ -26,7 +26,7 @@ var settingsService = Ember.Object.extend({
     localVal = this.get(name);
     val = this.get(name);
     if (!val) {
-      var setting = this.get("store").getById("setting", name);
+      var setting = this.get("store").peekRecord("setting", name);
       if (setting !== null) {
         val = setting.get("value");
       }
@@ -52,7 +52,7 @@ var settingsService = Ember.Object.extend({
     return val;
   },
   save: function(name, value) {
-    var setting = this.get("store").getById("setting", name);
+    var setting = this.get("store").peekRecord("setting", name);
     if (setting === null) {
       setting = this.get("store").createRecord("setting", {id: name, 'value': value});
     } else {
