@@ -2,7 +2,7 @@ import Ember from 'ember';
 /*** [  Data is exported from CMS and any changes should be reflected there.  ] ***/
 import staticDayData from '../data/day';
 import staticRecipeData from '../data/recipe';
-
+import expectedEntityCounts from '../data/entities';
 
 
 var setupService = Ember.Object.extend({
