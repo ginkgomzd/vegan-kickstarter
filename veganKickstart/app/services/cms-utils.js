@@ -6,7 +6,7 @@ var cmsUtils = Ember.Object.extend({
   settings: Ember.inject.service('settings'),
   indexes: {},
   baseUrl: function() { return EmberENV.cmsUrl; },
-  baseAPIPath: function() {return EmberENV.cmsUrl | 'api';},
+  baseAPIPath: function() {return EmberENV.cmsApiPath || 'api';},
 
   updateIndex: function(indexName, id, oldValues, newValues) {
     //Make sure that both lists of values are actually lists(arrays)
