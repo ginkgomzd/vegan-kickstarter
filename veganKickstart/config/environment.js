@@ -18,7 +18,8 @@ module.exports = function(environment) {
       },
       databaseVersion: 0.1,
       staticDataUpdatedDate: "2016-2-1",
-      cmsUrl: "http://sandbox.vegetarianoen21diasapp.com"
+      cmsUrl: "http://sandbox.vegetarianoen21diasapp.com",
+      cmsApiPath: "api"
     },
 
     APP: {
