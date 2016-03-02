@@ -10,6 +10,8 @@ Router.map(function() {
   this.route('recipe', {path: '/recipe/:index'});
   this.route('login');
   this.route('settings');
+  this.route('error');
+  this.route('loading');
 });
 
 export default Router;
