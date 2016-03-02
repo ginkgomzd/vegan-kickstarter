@@ -5,7 +5,7 @@ var cmsUtils = Ember.Object.extend({
   store: Ember.inject.service('store'),
   settings: Ember.inject.service('settings'),
   indexes: {},
-  baseUrl: EmberENV.cmsUrl,
+  baseUrl: function() { return EmberENV.cmsUrl; },
 
   updateIndex: function(indexName, id, oldValues, newValues) {
     //Make sure that both lists of values are actually lists(arrays)
@@ -134,7 +134,7 @@ var cmsUtils = Ember.Object.extend({
             promises[EmberENV.modelPaths[m].modelName] = that.fetchUpdatedContent(EmberENV.modelPaths[m], lastUpdated);
           }
         }
-        
+
         Ember.RSVP.hash(promises).then(function(updated) {
           that.saveIndexes().then(function() {
             resolve(updated);
