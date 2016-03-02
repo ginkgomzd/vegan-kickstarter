@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-var settingsService = Ember.Object.extend({
+var settingsService = Ember.Service.extend({
   store: Ember.inject.service('store'),
   setup: function() {
     var settings = this;

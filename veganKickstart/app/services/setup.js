@@ -5,7 +5,7 @@ import staticRecipeData from '../data/recipe';
 import expectedEntityCounts from '../data/entities';
 
 
-var setupService = Ember.Object.extend({
+var setupService = Ember.Service.extend({
   store: Ember.inject.service('store'),
   settings: Ember.inject.service('settings'),
   cmsUtils: Ember.inject.service('cmsUtils'),
