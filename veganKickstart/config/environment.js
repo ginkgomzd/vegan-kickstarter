@@ -17,7 +17,7 @@ module.exports = function(environment) {
         //favorite: {modelName: "setting", apiPath: "", emberDataNamespace: "VKASettings"}
       },
       databaseVersion: 0.1,
-      staticDataUpdatedDate: "2016-3-1",
+      staticDataUpdatedDate: "2016-2-1",
       cmsUrl: "http://sandbox.vegetarianoen21diasapp.com"
     },
 
