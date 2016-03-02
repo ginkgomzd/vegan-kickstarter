@@ -9,7 +9,16 @@ module.exports = function(environment) {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
-      }
+      },
+      modelPaths: {
+        day: {modelName: "day", apiPath: "days", emberDataNamespace: "VKADays"},
+        recipe: {modelName: "recipe", apiPath: "recipes", emberDataNamespace: "VKARecipes"},
+        setting: {modelName: "setting", apiPath: "", emberDataNamespace: "VKASettings"},
+        //favorite: {modelName: "setting", apiPath: "", emberDataNamespace: "VKASettings"}
+      },
+      databaseVersion: 0.1,
+      staticDataUpdatedDate: "2016-3-1",
+      cmsUrl: ""
     },
 
     APP: {
