@@ -5,23 +5,7 @@ var cmsUtils = Ember.Object.extend({
   store: Ember.inject.service('store'),
   settings: Ember.inject.service('settings'),
   indexes: {},
-  baseUrl: function() {
-    if (EmberENV.cmsUrl) {
-      return EmberENV.cmsUrl;
-    } else {
-      return 'http://here2career.beaker.ginkgostreet.com';
-    }
-  },
-
-  //This will be used for storing Alumni images offline
-  alumniDetails: function(newValues, oldValues) {
-
-  },
-
-  programDetails: function(newValues, oldValues) {
-    this.updateIndex(EmberENV.modelPaths.collegeIndex.modelName, newValues.id, oldValues.college, newValues.college);
-    this.updateIndex(EmberENV.modelPaths.occupationIndex.modelName, newValues.id, oldValues.occupation, newValues.occupation);
-  },
+  baseUrl: EmberENV.cmsUrl,
 
   updateIndex: function(indexName, id, oldValues, newValues) {
     //Make sure that both lists of values are actually lists(arrays)
@@ -61,7 +45,7 @@ var cmsUtils = Ember.Object.extend({
       }
     }
   },
-  
+
   loadIndex: function(mapping) {
     var that = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -138,21 +122,19 @@ var cmsUtils = Ember.Object.extend({
   updateAll: function(lastUpdated) {
     var that = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      var indexes = {
-        collegeIndex: that.loadIndex(EmberENV.modelPaths.collegeIndex),
-        occupationIndex: that.loadIndex(EmberENV.modelPaths.occupationIndex)
-      };
+
+      var indexes = {};
 
       Ember.RSVP.hash(indexes).then(function(updated) {
-        var promises = {
-          alumni: that.fetchUpdatedContent(EmberENV.modelPaths.alumni, lastUpdated),
-          cluster: that.fetchUpdatedContent(EmberENV.modelPaths.cluster, lastUpdated),
-          pathway: that.fetchUpdatedContent(EmberENV.modelPaths.pathway, lastUpdated),
-          occupation: that.fetchUpdatedContent(EmberENV.modelPaths.occupation, lastUpdated),
-          program: that.fetchUpdatedContent(EmberENV.modelPaths.program, lastUpdated),
-          college: that.fetchUpdatedContent(EmberENV.modelPaths.college, lastUpdated),
-          resources: that.fetchUpdatedContent(EmberENV.modelPaths.resource, lastUpdated)
-        };
+
+        var promises = {};
+
+        for(var m in EmberENV.modelPaths) {
+          if(EmberENV.modelPaths.hasOwnProperty(m) && EmberENV.modelPaths[m].apiPath) {
+            promises[EmberENV.modelPaths[m].modelName] = that.fetchUpdatedContent(EmberENV.modelPaths[m], lastUpdated);
+          }
+        }
+        
         Ember.RSVP.hash(promises).then(function(updated) {
           that.saveIndexes().then(function() {
             resolve(updated);
