@@ -2,7 +2,7 @@
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0 40px 40px 0;
+  border-width: 0 30px 30px 0;
   border-color: transparent $cadetBlue transparent transparent;
   float: right;
   z-index: 10;
@@ -20,9 +20,18 @@
 
 .darkGrayBar {
   background-color: $darkGray;
-  color: $cadetBlue;
+  color: $brightAqua;
   width: 100%;
   padding: 10px 3px 10px 15px;
   font-size: 2rem;
   font-weight: bold;
+}
+
+.greenBox {
+  border: 1px solid $hunterGreen;
+  border-radius: 10px;
+  background: $lightGreen;
+  color: #000;
+  padding: 10px 5px 10px 5px;
+  margin: 5px;
 }
