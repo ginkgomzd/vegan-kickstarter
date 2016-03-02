@@ -3,7 +3,9 @@
     "document",
     "window",
     "-Promise",
-    "EmberENV"
+    "localforage",
+    "EmberENV",
+    "cordova"
   ],
   "browser": true,
   "boss": true,
