@@ -2,10 +2,11 @@
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0 30px 30px 0;
-  border-color: transparent $cadetBlue transparent transparent;
+  border-width: 0 38px 38px 0;
+  border-color: transparent $brightAqua transparent transparent;
   float: right;
   z-index: 10;
+  position: relative;
 }
 
 .greenBar {
@@ -16,6 +17,7 @@
   background-color: $limeGreen;
   float: right;
   z-index: 5;
+  position: relative;
 }
 
 .darkGrayBar {
