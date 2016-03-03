@@ -1,1 +1,4 @@
-<div class="alert alert-danger" role="alert">{{ts 'error-page' "Something has gone very wrong"}}</div>
+<div class="alert alert-danger" role="alert">
+  <strong>{{ts 'error' 'Error'}}:</strong> {{ts 'error-page' "Something has gone very wrong: "}}
+  {{model.error}}
+</div>
