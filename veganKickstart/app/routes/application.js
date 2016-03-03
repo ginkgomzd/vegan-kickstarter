@@ -7,5 +7,6 @@ export default Ember.Route.extend({
   },
   afterModel: function(transition) {
     //This is where we will calculate which day should be shown
+    this.transitionTo("day", 1);
   }
 });
