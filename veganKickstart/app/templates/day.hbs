@@ -12,9 +12,12 @@
 
 <div class="greenBox">
   <h5 class="title">{{ts 'menu-of-day' 'MENÚ DE HOY'}}:</h5>
-  <ul class="menuList">
+  <ul class="list-group menuList">
     {{#each model.recipes as |recipe|}}
-      <li>{{recipe.name}}</li>
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        {{#link-to "recipe" recipe.id}}{{recipe.name}}{{/link-to}}
+      </li>
     {{/each}}
   </ul>
 </div>
