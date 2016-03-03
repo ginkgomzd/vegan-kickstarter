@@ -1,1 +1,20 @@
-Day
+{{image-widget}}
+<div class="darkGrayBar">{{ts "day" "DÍA"}} {{model.id}}:</div>
+
+
+<div class="greenBox">
+  <h5 class="title">{{ts 'message-of-day' 'MENSAJE DE HOY'}}:</h5>
+  <span class="message">
+    {{{model.messageBody}}}
+  </span>
+</div>
+
+
+<div class="greenBox">
+  <h5 class="title">{{ts 'menu-of-day' 'MENÚ DE HOY'}}:</h5>
+  <ul class="menuList">
+    {{#each model.recipes as |recipe|}}
+      <li>{{recipe.name}}</li>
+    {{/each}}
+  </ul>
+</div>

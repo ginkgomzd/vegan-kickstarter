@@ -1,0 +1,21 @@
+.menuList {
+  list-style: none;
+  padding-left: 15px;
+}
+
+.menuList li:before {
+  content: "\e074";
+
+  position: relative;
+  top: -2px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.1rem;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $hunterGreen;
+  padding-right: 5px;
+}
