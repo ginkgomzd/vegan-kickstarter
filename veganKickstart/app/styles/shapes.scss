@@ -24,11 +24,19 @@
   background-color: $darkGray;
   color: $brightAqua;
   width: 100%;
-  padding: 10px 3px 10px 15px;
-  font-size: 2rem;
-  font-weight: bold;
+  padding: 10px 3px;
+  font-size: 1.9rem;
 }
 
+.darkGrayBar .glyphicon {
+  top: 3px;
+}
+.darkGrayBar .glyphicon.left {
+  margin-right: 5px;
+}
+.darkGrayBar .glyphicon.right {
+  margin-left: 5px;
+}
 .greenBox {
   border: 1px solid $hunterGreen;
   border-radius: 10px;
