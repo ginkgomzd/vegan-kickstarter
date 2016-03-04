@@ -21,7 +21,7 @@ var setupService = Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       setup.get("cmsUtils").updateAll(lastUpdated).then(function(updated) {
         var today = new Date();
-        setup.get("settings").save("lastUpdatedDate", today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate());
+        setup.get("settings").save("lastUpdatedDate", today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + today.getHours() + ":" + today.getMinutes());
         resolve(true);
       }, function() {
         resolve(false);
