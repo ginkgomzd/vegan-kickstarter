@@ -1,5 +1,8 @@
 {{image-widget images=model.images}}
-<div class="darkGrayBar"><span class="title">{{model.name}}</span></div>
+<div class="darkGrayBar">
+  <span class="title">{{model.name}}</span>
+  {{favorite-widget model=model}}
+</div>
 
 {{#em-tabs configName="vka"}}
   {{#em-tab-list}}
