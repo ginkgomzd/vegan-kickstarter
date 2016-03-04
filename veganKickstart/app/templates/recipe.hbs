@@ -1,1 +1,35 @@
-Recipe
+{{image-widget images=model.images}}
+<div class="darkGrayBar">{{model.name}}</div>
+
+{{#em-tabs configName="vka"}}
+  {{#em-tab-list}}
+    {{#em-tab}}{{ts 'description' 'Descripción'}}{{/em-tab}}
+    {{#em-tab}}{{ts 'ingredients' 'Ingredientes'}}{{/em-tab}}
+    {{#em-tab}}{{ts 'instructions' 'Instrucciones'}}{{/em-tab}}
+    {{#em-tab}}{{ts 'nutrition' 'Nutrición'}}{{/em-tab}}
+  {{/em-tab-list}}
+  {{#em-tab-panel}}
+    <div class="recipe-section">
+      <h5 class="title">{{ts 'description' 'Descripción'}}:</h5>
+      {{{model.description}}}
+    </div>
+  {{/em-tab-panel}}
+  {{#em-tab-panel}}
+    <div class="recipe-section">
+      <h5 class="title">{{ts 'ingredients' 'Ingredientes'}}:</h5>
+      {{{model.ingredients}}}
+    </div>
+  {{/em-tab-panel}}
+  {{#em-tab-panel}}
+    <div class="recipe-section">
+      <h5 class="title">{{ts 'instructions' 'Instrucciones'}}:</h5>
+      {{{model.instructions}}}
+    </div>
+  {{/em-tab-panel}}
+  {{#em-tab-panel}}
+    <div class="recipe-section">
+      <h5 class="title">{{ts 'nutrition' 'Nutrición'}}:</h5>
+      {{{model.nutrition}}}
+    </div>
+  {{/em-tab-panel}}
+{{/em-tabs}}
