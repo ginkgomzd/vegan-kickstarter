@@ -1,16 +1,22 @@
-<div class="imageWidget">
-  <!--// Green bar //-->
-  <div class="greenBar">
-    <!--// Blue Triangle //-->
-    <div class="triangle"></div>
-  </div>
+<!--// Green bar //-->
+<div class="greenBar">
+  <!--// Blue Triangle //-->
+  <div class="triangle"></div>
+</div>
 
-  <!--//Include Images//-->
-  {{#if images}}
-
+<!--//Include Images//-->
+{{#if images}}
+  {{#slick-slider autoplay=false arrows=false dots=false mobileFirst=false adaptiveHeight=true infinite=false}}
+    {{#each images as |image|}}
+      <div class="box carousel-slide"><img src="data:{{image.mimeType}};base64,{{image.imageData}}" /></div>
+    {{/each}}
+  {{/slick-slider}}
+{{else}}
+  {{#if image}}
+    <img src="data:{{image.mimeType}};base64,{{image.imageData}}" />
   {{else}}
     <img src="images/default.png" />
   {{/if}}
+{{/if}}
 
 <div class="clear"></div>
-</div>

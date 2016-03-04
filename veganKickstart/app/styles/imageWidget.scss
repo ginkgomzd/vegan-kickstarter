@@ -9,3 +9,22 @@
   height: auto;
   float: left;
 }
+
+.imageWidget .greenBar {
+  box-shadow: 0 2px 3px $darken33;
+}
+
+.imageWidget .slick-slider {
+  margin-bottom: 0;
+  background: $darkGray;
+}
+.imageWidget .slick-track {
+  width: 100%;
+}
+.imageWidget .slick-list {
+  width: 100%;
+}
+.imageWidget .slick-slide {
+  width: 100%;
+  height: auto;
+}
