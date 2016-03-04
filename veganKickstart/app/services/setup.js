@@ -2,6 +2,7 @@ import Ember from 'ember';
 /*** [  Data is exported from CMS and any changes should be reflected there.  ] ***/
 import staticDayData from '../data/day';
 import staticRecipeData from '../data/recipe';
+import staticImageData from '../data/image';
 import expectedEntityCounts from '../data/entities';
 
 
@@ -86,6 +87,7 @@ var setupService = Ember.Service.extend({
         var staticPromises = {
           day: setup.loadStaticDataForModel(EmberENV.modelPaths.day, staticDayData),
           recipe: setup.loadStaticDataForModel(EmberENV.modelPaths.recipe, staticRecipeData),
+          image: setup.loadStaticDataForModel(EmberENV.modelPaths.image, staticImageData),
           settings: setup.get("settings").setup(),
         };
 
