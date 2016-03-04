@@ -12,7 +12,6 @@ export default Ember.Route.extend({
   },
   actions: {
     didTransition: function(transition) {
-      console.log("Transition");
       Ember.run.later(this, function() {
         var mode =  this.controllerFor(this.controller.currentRouteName).get("showBackButton") || 'always';
 

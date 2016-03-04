@@ -6,7 +6,6 @@ export default Ember.Component.extend({
   classNameBindings: ["showBackButton:bb-visible:bb-hidden"],
   settings: Ember.inject.service('settings'),
   showBackButton: function() {
-    console.log(this.get("settings").get("showBackButton"));
     return this.get("settings").get("showBackButton");
   }.property("settings.showBackButton"),
   actions: {
