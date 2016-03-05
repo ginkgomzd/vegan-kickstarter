@@ -6,7 +6,7 @@
 
 <!--//Include Images//-->
 {{#if images}}
-  {{#slick-slider autoplay=false arrows=false dots=false mobileFirst=false adaptiveHeight=true infinite=false}}
+  {{#slick-slider autoplay=false arrows=false dots=showDots mobileFirst=false adaptiveHeight=true infinite=false}}
     {{#each images as |image|}}
       <div class="box carousel-slide"><img src="data:{{image.mimeType}};base64,{{image.imageData}}" /></div>
     {{/each}}

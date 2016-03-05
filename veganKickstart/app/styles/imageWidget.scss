@@ -28,3 +28,26 @@
   width: 100%;
   height: auto;
 }
+.imageWidget .slick-dots {
+  z-index: 10;
+  bottom: 0;
+  top: -3px;
+  position: relative;
+  margin-bottom: 0;
+  height: 0px;
+  overflow: visible;
+}
+.imageWidget .slick-dots button {
+  display: none;
+}
+.imageWidget .slick-dots li{
+  height: 5px;
+  width: 5px;
+  border-radius: 100%;
+  background: $mediumGray;
+  margin-top: -3px;
+}
+.imageWidget .slick-dots li.slick-active {
+  border-color: $limeGreen;
+  background: $limeGreen;
+}
