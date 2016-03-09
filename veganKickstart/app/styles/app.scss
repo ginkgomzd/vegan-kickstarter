@@ -3,6 +3,11 @@
 @import "shapes";
 @import "titles";
 @import "day";
+@import "recipe";
+@import "tabs";
+@import "buttons";
+@import "android";
+@import "ios";
 @import "imageWidget";
 @import "bootstrap";
 
@@ -12,4 +17,23 @@
   margin: 0;
   padding: 0;
   clear: both;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.main-nav {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.main-nav .title {
+  margin-left: 5px;
+}
+.main-nav.bb-hidden .title {
+  margin-left: 28px;
 }

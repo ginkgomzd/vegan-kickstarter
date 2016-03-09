@@ -67,6 +67,9 @@ var settingsService = Ember.Service.extend({
     //This is to trigger observable changes, otherwise they aren't triggered
     this.set(name, null);
     this.set(name, value);
+  },
+  sessionVar: function(name, value) {
+    this.set(name, value);
   }
 });
 

@@ -1,0 +1,18 @@
+.main-nav .back-button {
+
+}
+
+.main-nav.bb-visible .back-button {
+
+}
+
+.main-nav.bb-hidden .back-button {
+  display: none;
+}
+
+.favorite {
+  margin-right: 7px;
+}
+.favorite-saved {
+  color: $yellow;
+}
