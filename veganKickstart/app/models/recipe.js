@@ -7,5 +7,5 @@ export default DS.Model.extend({
   ingredients: DS.attr('string'),
   nutrition: DS.attr('string'),
   tags: DS.attr(),
-  images: DS.attr()
+  images: DS.hasMany("image")
 });

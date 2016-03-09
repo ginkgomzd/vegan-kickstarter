@@ -1,1 +1,34 @@
-Day
+{{image-widget}}
+<div class="darkGrayBar">{{ts "day" "DÍA"}} {{model.id}}:</div>
+
+
+<div class="greenBox">
+  {{#if model.messageTitle}}
+    <h5 class="title">{{model.messageTitle}}:</h5>
+  {{else}}
+    <h5 class="title">{{ts 'message-of-day' 'MENSAJE DE HOY'}}:</h5>
+  {{/if}}
+  <span class="message">
+    {{{model.messageBody}}}
+  </span>
+</div>
+
+
+<div class="greenBox">
+  <h5 class="title">{{ts 'menu-of-day' 'MENÚ DE HOY'}}:</h5>
+  <ul class="list-group menuList">
+    {{#each model.recipes as |recipe|}}
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        {{#link-to "recipe" recipe.id}}{{recipe.name}}{{/link-to}}
+      </li>
+    {{/each}}
+  </ul>
+  <span class="center smaller">
+    *{{ts 'swap-menu-items' 'Intercambie los tiempos de comida si desea. su cuerpo y a su mente. ¡Felicitaciones!'}}
+  </span>
+</div>
+
+<div class="greenBox">
+  <h5 class="title">TODO: Add other stuff here</h5>
+</div>

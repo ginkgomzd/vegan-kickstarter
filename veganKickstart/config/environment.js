@@ -13,12 +13,14 @@ module.exports = function(environment) {
       modelPaths: {
         day: {modelName: "day", apiPath: "days", emberDataNamespace: "VKADays"},
         recipe: {modelName: "recipe", apiPath: "recipes", emberDataNamespace: "VKARecipes"},
+        image: {modelName: "image", apiPath: "images", emberDataNamespace: "VKAImages"},
         setting: {modelName: "setting", apiPath: "", emberDataNamespace: "VKASettings"},
         //favorite: {modelName: "setting", apiPath: "", emberDataNamespace: "VKASettings"}
       },
       databaseVersion: 0.1,
-      staticDataUpdatedDate: "2016-3-1",
-      cmsUrl: ""
+      staticDataUpdatedDate: "2016-2-1",
+      cmsUrl: "http://sandbox.vegetarianoen21diasapp.com",
+      cmsApiPath: "api"
     },
 
     APP: {

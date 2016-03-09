@@ -1,11 +1,13 @@
 import Ember from 'ember';
 import ajax from 'ic-ajax';
 
-var cmsUtils = Ember.Object.extend({
+var cmsUtils = Ember.Service.extend({
   store: Ember.inject.service('store'),
   settings: Ember.inject.service('settings'),
+  isServiceFactory: true,
   indexes: {},
-  baseUrl: EmberENV.cmsUrl,
+  baseUrl: function() { return EmberENV.cmsUrl; },
+  baseAPIPath: function() {return EmberENV.cmsApiPath || 'api';},
 
   updateIndex: function(indexName, id, oldValues, newValues) {
     //Make sure that both lists of values are actually lists(arrays)
@@ -78,7 +80,7 @@ var cmsUtils = Ember.Object.extend({
   fetchUpdatedContent: function(modelMapping, lastUpdated) {
     var store = this.get("store");
     var thisService = this;
-    var url = this.baseUrl() + "/api/" + modelMapping.apiPath + "?updated=" + lastUpdated;
+    var url = this.baseUrl() + "/"+ this.baseAPIPath() +"/" + modelMapping.apiPath + "?updated=" + lastUpdated;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       ajax(url).then(function (results) {
         if(results.length > 0) {
@@ -134,7 +136,7 @@ var cmsUtils = Ember.Object.extend({
             promises[EmberENV.modelPaths[m].modelName] = that.fetchUpdatedContent(EmberENV.modelPaths[m], lastUpdated);
           }
         }
-        
+
         Ember.RSVP.hash(promises).then(function(updated) {
           that.saveIndexes().then(function() {
             resolve(updated);
