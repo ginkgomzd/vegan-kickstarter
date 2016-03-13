@@ -1,34 +1,45 @@
-{{image-widget}}
-<div class="darkGrayBar"><span class="title">{{ts "day" "DÍA"}} {{model.id}}:</span></div>
+<div id="day-view">
+  {{#slick-slider slickInit="slickInit" beforeChange="beforeSlideChange" afterChange="afterSlideChange" edge="reachedEdge" autoplay=false arrows=false dots=false mobileFirst=true adaptiveHeight=true infinite=false swipeToSlide=true initialSlide=firstSlide edgeFriction=0.03 touchThreshold=2}}
+
+    {{#each model.days as |day|}}
+      <div class="day">
+        {{image-widget}}
+        <div class="darkGrayBar"><span class="title">{{ts "day" "DÍA"}} {{day.id}}:</span></div>
 
 
-<div class="greenBox">
-  {{#if model.messageTitle}}
-    <h5 class="title">{{model.messageTitle}}:</h5>
-  {{else}}
-    <h5 class="title">{{ts 'message-of-day' 'MENSAJE DE HOY'}}:</h5>
-  {{/if}}
-  <span class="message">
-    {{{model.messageBody}}}
-  </span>
-</div>
+        <div class="greenBox">
+          {{#if day.messageTitle}}
+            <h5 class="title">{{day.messageTitle}}:</h5>
+          {{else}}
+            <h5 class="title">{{ts 'message-of-day' 'MENSAJE DE HOY'}}:</h5>
+          {{/if}}
+          <span class="message">
+            {{{day.messageBody}}}
+          </span>
+        </div>
 
 
-<div class="greenBox">
-  <h5 class="title">{{ts 'menu-of-day' 'MENÚ DE HOY'}}:</h5>
-  <ul class="list-group menuList">
-    {{#each model.recipes as |recipe|}}
-      <li {{action "viewRecipe" recipe.id}} class="list-group-item">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-        {{recipe.name}}
-      </li>
+        <div class="greenBox">
+          <h5 class="title">{{ts 'menu-of-day' 'MENÚ DE HOY'}}:</h5>
+          <ul class="list-group menuList">
+            {{#each day.recipes as |recipe|}}
+              <li {{action "viewRecipe" recipe.id}} class="list-group-item">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                {{recipe.name}}
+              </li>
+            {{/each}}
+          </ul>
+          <span class="center smaller">
+            *{{ts 'swap-menu-items' 'Intercambie los tiempos de comida si desea. su cuerpo y a su mente. ¡Felicitaciones!'}}
+          </span>
+        </div>
+
+        <div class="greenBox">
+          <h5 class="title">TODO: Add other stuff here</h5>
+        </div>
+      </div>
     {{/each}}
-  </ul>
-  <span class="center smaller">
-    *{{ts 'swap-menu-items' 'Intercambie los tiempos de comida si desea. su cuerpo y a su mente. ¡Felicitaciones!'}}
-  </span>
-</div>
 
-<div class="greenBox">
-  <h5 class="title">TODO: Add other stuff here</h5>
+    {{/slick-slider}}
+
 </div>
