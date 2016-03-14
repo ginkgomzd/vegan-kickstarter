@@ -98,6 +98,9 @@ export default Ember.Controller.extend(Ember.Evented, {
     },
     showFavorites: function() {
       this.set("model.query", "favorites");
+    },
+    gotoRecipe: function(recipeId) {
+      this.transitionToRoute("recipe", recipeId);
     }
   }
 });
