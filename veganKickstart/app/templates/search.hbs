@@ -1,0 +1,41 @@
+<div id="searchOptions">
+  <div {{action "showSearch"}} class="vka-em-tab {{searchActive}}">
+        <span class="glyphicon favorite glyphicon-search"></span>
+        {{ts 'search' 'Buscar'}}
+  </div>
+  <div {{action "showFavorites"}} class="vka-em-tab {{favoriteActive}}">
+    <span class="glyphicon favorite glyphicon-star"></span>
+    {{ts 'favorites' 'Favoritos'}}
+  </div>
+  {{#if searchActive}}
+    <div class="searchBox">
+      {{input type="text" value=queryString placeholder="Buscar..."}}
+    </div>
+  {{/if}}
+</div>
+
+
+
+{{#if results}}
+  <div class="searchResults">
+  {{#each results as |recipe|}}
+    <div class="media">
+      <div class="media-left">
+          {{#if recipe.images.firstObject}}
+            <img class="img-responsive media-object" src="data:{{recipe.images.firstObject.mimeType}};base64,{{recipe.images.firstObject.imageData}}">
+          {{else}}
+            <img class="img-responsive media-object" src="assets/images/default.png" />
+          {{/if}}
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{recipe.name}}</h4>
+        {{{summary recipe.instructions 100}}}
+      </div>
+    </div>
+  {{/each}}
+  </div>
+{{else}}
+  <div class="center">
+    - {{ts "no-results" "sin resultados"}} -
+  </div>
+{{/if}}
