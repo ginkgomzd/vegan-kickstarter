@@ -82,12 +82,12 @@ export default Ember.Controller.extend(Ember.Evented, {
    */
   favoriteActive: function() {
     if (this.get("model").query === "favorites") {
-      return "vka-tab-active";
+      return "tab-style-active";
     }
   }.property("model.query"),
   searchActive: function() {
     if (this.get("model").query !== "favorites") {
-      return "vka-tab-active";
+      return "tab-style-active";
     }
   }.property("model.query"),
 

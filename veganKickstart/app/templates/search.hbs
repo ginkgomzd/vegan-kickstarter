@@ -1,15 +1,16 @@
 <div id="searchOptions">
-  <div {{action "showSearch"}} class="vka-em-tab {{searchActive}}">
+  <div {{action "showSearch"}} class="tab-style {{searchActive}}">
         <span class="glyphicon favorite glyphicon-search"></span>
         {{ts 'search' 'Buscar'}}
   </div>
-  <div {{action "showFavorites"}} class="vka-em-tab {{favoriteActive}}">
+  <div {{action "showFavorites"}} class="tab-style {{favoriteActive}}">
     <span class="glyphicon favorite glyphicon-star"></span>
     {{ts 'favorites' 'Favoritos'}}
   </div>
   {{#if searchActive}}
     <div class="searchBox">
       {{input type="text" value=queryString placeholder="Buscar..."}}
+
     </div>
   {{/if}}
 </div>
