@@ -54,6 +54,10 @@ export default Ember.Controller.extend(Ember.Evented, {
       this.updateSort();
     } else {
 
+      if (!this.get("queryString")) {
+        return this.set("results", []);
+      }
+
       var needles = this.get("queryString").split(" ").map(function (str) {
         if (str) {
           return new RegExp(str, "ig");
