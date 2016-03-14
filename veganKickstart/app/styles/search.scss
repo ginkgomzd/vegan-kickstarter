@@ -1,0 +1,38 @@
+#searchOptions .vka-em-tab {
+  padding: 5px 1px;
+  width: 50%;
+}
+
+.searchBox {
+  clear: both;
+  padding-top: 10px;
+}
+
+.searchBox input {
+  width: 94%;
+  margin-left: 3%;
+  padding-left: 3px;
+}
+
+.searchResults {
+  clear: both;
+  padding-top: 10px;
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
+}
+
+.searchResults .media {
+  width: 100%;
+  background: url(images/right_arrow.png) no-repeat right center $lightGreen;
+  border-bottom: 1px solid $hunterGreen;
+  margin: 2px auto;
+  padding: 3px;
+}
+
+.searchResults .media-left {
+  width: 64px;
+  display: inline-block;
+  float: left;
+
+}
