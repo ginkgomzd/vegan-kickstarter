@@ -1,5 +1,5 @@
 #searchOptions .tab-style {
-  padding: 5px 1px;
+  padding: 7px 1px;
   width: 50%;
   float: left;
 }
@@ -7,6 +7,7 @@
 .searchBox {
   clear: both;
   padding-top: 10px;
+  background: $powderBlue;
 }
 
 .searchBox input {
@@ -31,8 +32,11 @@
   width: 100%;
   background: url(images/right_arrow.png) no-repeat right center $lightGreen;
   border-bottom: 1px solid $hunterGreen;
-  margin: 2px auto;
-  padding: 3px;
+  margin: 0 auto;
+  padding: 5px;
+}
+.searchResults .media:first-child {
+  border-top: 1px solid $hunterGreen;
 }
 
 .searchResults .media-left {
@@ -40,6 +44,9 @@
   display: inline-block;
   float: left;
 
+}
+.searchResults p {
+  margin-bottom: 2px;
 }
 
 .no-results {
