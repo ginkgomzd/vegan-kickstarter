@@ -15,6 +15,10 @@
   padding-left: 3px;
 }
 
+.sortOptions {
+  padding-top: 10px;
+}
+
 .searchResults {
   clear: both;
   padding-top: 10px;
@@ -36,4 +40,9 @@
   display: inline-block;
   float: left;
 
+}
+
+.no-results {
+  clear: both;
+  padding-top: 10px;
 }
