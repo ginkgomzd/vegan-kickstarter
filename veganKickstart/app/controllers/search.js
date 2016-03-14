@@ -2,6 +2,12 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend(Ember.Evented, {
   showBackButton: 'always',
+  sortProperty: function() {
+    return "weight";
+  }.property(),
+  sortDirection: function() {
+    return "reverse";
+  }.property(),
   /**
    * Returns a list of recipes that have been favorited.
    */
@@ -10,28 +16,75 @@ export default Ember.Controller.extend(Ember.Evented, {
   }.property("model.recipes.@each"),
 
   /**
-   *
+   * This function responds to changes in the sort params
+   * and sets the results accordingly.
+   */
+  updateSort: function() {
+    if (this.get("sortDirection") === "reverse") {
+      this.set("results", this.get("cachedRecipes").sortBy(this.get("sortProperty")).reverse());
+    } else {
+      this.set("results", this.get("cachedRecipes").sortBy(this.get("sortProperty")));
+    }
+  }.observes("sortProperty"),
+
+
+  /**
+   * Field to hold the last query string we searched for.
+   */
+  cachedQuery: function() {
+    return "";
+  }.property(),
+
+  /**
+   * property to hold the last list of search results.
+   */
+  cachedRecipes: function() {
+    return [];
+  }.property(),
+
+  results: function() {
+    return [];
+  }.property(),
+
+  /**
+   * This function actually does the searching
    */
   searchRecipes: function() {
-    var needles = this.get("queryString").split(" ").map(function(str) {
-      return new RegExp(str, "ig");
-    });
-    var recipes = this.get("model").recipes.filter(function(item) {
-      //This is a shortcut to get all the data for an item in a single string.
-      var haystack = JSON.stringify(item);
-      item.weight = 0;
-      for (var i in needles) {
-        if(needles.hasOwnProperty(i)) {
-           item.weight = item.weight + (haystack.match(needles[i]) || []).length;
-        }
-      }
-      return (item.weight > 0);
-    });
-    if (recipes.length > 0) {
-      return recipes.sortBy("weight");
-      //return recipes.sortBy("name");
+    if(this.get("cachedQuery") === this.get("queryString")) {
+      this.updateSort();
     } else {
-      return false;
+
+      var needles = this.get("queryString").split(" ").map(function (str) {
+        if (str) {
+          return new RegExp(str, "ig");
+        }
+        return false;
+      });
+
+      var recipes = this.get("model").recipes.filter(function (item) {
+        //This is a shortcut to get all the data for an item in a single string.
+        var haystack = JSON.stringify(item);
+        var weight = 0;
+        for (var i in needles) {
+          if (needles.hasOwnProperty(i) && needles[i]) {
+            weight = weight + (haystack.match(needles[i]) || []).length;
+          }
+        }
+        item.set("weight", weight);
+        return (item.weight > 0);
+      });
+      this.set("cachedRecipes", recipes);
+      this.set("cachedQuery", this.get("queryString"));
+
+      if (recipes.length > 0) {
+        if (this.get("sortDirection") === "reverse") {
+          this.set("results", recipes.sortBy(this.get("sortProperty")).reverse());
+        } else {
+          this.set("results", recipes.sortBy(this.get("sortProperty")));
+        }
+      } else {
+        this.set("results", []);
+      }
     }
   },
 
@@ -40,6 +93,8 @@ export default Ember.Controller.extend(Ember.Evented, {
    * We are searching on model, but holding the query string
    * in it's own property to facilitate UI changes, and to
    * debounce live search results.
+   *
+   * This fascilitates two-way data-binding
    */
   queryString: function() {
     if (this.get("model").query === "favorites") {
@@ -55,26 +110,10 @@ export default Ember.Controller.extend(Ember.Evented, {
    */
   updateSearchResults: function() {
     Ember.run.debounce(this, function() {
-      this.set("model.query", this.get("queryString"));
+      this.searchRecipes();
     }, 1000);
   }.observes("queryString"),
 
-  /**
-   * This function is a helper to wrap our favorite functionality
-   * and keep it separate from the search functionality
-   */
-  results: function() {
-    var model = this.get("model");
-    if(model.query) {
-      if (model.query === "favorites") {
-        return this.get("favoriteRecipes");
-      } else {
-        return this.searchRecipes();
-      }
-    } else {
-      return false;
-    }
-  }.property("model.query"),
 
   /**
    * Helper functions that produce class strings that hide/show
@@ -90,17 +129,33 @@ export default Ember.Controller.extend(Ember.Evented, {
       return "tab-style-active";
     }
   }.property("model.query"),
+  relevanceActive: function() {
+    return (this.get("sortProperty") === "weight") ? "tab-style-active" : "";
+  }.property("sortProperty"),
+  alphabeticalActive: function() {
+    return (this.get("sortProperty") === "name") ? "tab-style-active" : "";
+  }.property("sortProperty"),
 
 
   actions: {
     showSearch: function() {
       this.set("model.query", this.get("queryString"));
+      this.searchRecipes();
     },
     showFavorites: function() {
       this.set("model.query", "favorites");
+      this.set("results", this.get("favoriteRecipes"));
     },
     gotoRecipe: function(recipeId) {
       this.transitionToRoute("recipe", recipeId);
+    },
+    sortByRelevance: function() {
+      this.set("sortDirection", "reverse");
+      this.set("sortProperty", "weight");
+    },
+    sortAlphabetical: function() {
+      this.set("sortDirection", "asc");
+      this.set("sortProperty", "name");
     }
   }
 });
