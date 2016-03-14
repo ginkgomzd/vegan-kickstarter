@@ -11,6 +11,8 @@ Router.map(function() {
   this.route('login');
   this.route('settings');
   this.route('loading');
+  this.route('search', {path: '/search/:query'});
+  this.route('search', {path: '/search'});
 });
 
 export default Router;
