@@ -9,6 +9,7 @@ import expectedEntityCounts from '../data/entities';
 var setupService = Ember.Service.extend({
   store: Ember.inject.service('store'),
   settings: Ember.inject.service('settings'),
+  dateHelper: Ember.inject.service('date-functions'),
   cmsUtils: Ember.inject.service('cmsUtils'),
   checkForUpdates: function() {
     var setup = this;
@@ -20,8 +21,8 @@ var setupService = Ember.Service.extend({
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
       setup.get("cmsUtils").updateAll(lastUpdated).then(function(updated) {
-        var today = new Date();
-        setup.get("settings").save("lastUpdatedDate", today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + today.getHours() + ":" + today.getMinutes());
+        var today = setup.get("dateHelper").formatDateTime();
+        setup.get("settings").save("lastUpdatedDate", today);
         resolve(true);
       }, function() {
         resolve(false);
