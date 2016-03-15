@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
   settings: Ember.inject.service('settings'),
   dateHelper: Ember.inject.service('date-functions'),
   facebook: Ember.inject.service('facebook'),
-  showBackButton: 'never',
+  showBackButton: 'always',
 
   /**
    * function to return a range of numbers for generating the select list
@@ -36,6 +36,8 @@ export default Ember.Controller.extend({
   init: function() {},
   actions: {
     facebookLogin: function() {
+      alert("This isn't complete yet");
+      /*
       var that = this;
       this.get("facebook").login().then(function(userData) {
           console.log(userData);
@@ -46,7 +48,7 @@ export default Ember.Controller.extend({
           alert(error);
         }
       );
-
+*/
     }
   }
 });
