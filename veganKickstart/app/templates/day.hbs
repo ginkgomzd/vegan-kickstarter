@@ -25,7 +25,7 @@
             {{#each day.recipes as |recipe|}}
               <li {{action "viewRecipe" recipe.id}} class="list-group-item">
                 <span class="glyphicon glyphicon-chevron-right"></span>
-                {{recipe.name}}
+                {{{recipe.name}}}
               </li>
             {{/each}}
           </ul>
