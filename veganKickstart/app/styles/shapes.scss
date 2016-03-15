@@ -28,6 +28,13 @@
   font-size: 1.85rem;
 }
 
+@media (max-width: 359px) {
+  .darkGrayBar {
+    padding: 8px 0px;
+    font-size: 1.65rem;
+  }
+}
+
 .darkGrayBar .glyphicon {
   top: 3px;
 }

@@ -18,10 +18,10 @@ export default {
       tabTag: ['div'],
       tabListTag: ['div'],
       tabsClasses: ['vka-em-tab-container'],
-      tabClasses: ['vka-em-tab'],
+      tabClasses: ['vka-em-tab', 'tab-style'],
       tabListClasses: ['vka-em-tab-list'],
       tabPanelClasses: ['vka-em-tab-panel'],
-      tabSelectedClasses: ['vka-tab-active']
+      tabSelectedClasses: ['vka-tab-active','tab-style-active']
     };
   }
 };

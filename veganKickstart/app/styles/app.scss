@@ -4,8 +4,9 @@
 @import "titles";
 @import "day";
 @import "recipe";
-@import "tabs";
+@import "search";
 @import "buttons";
+@import "tabs";
 @import "android";
 @import "ios";
 @import "imageWidget";
@@ -25,6 +26,11 @@
 
 .left {
   float: left;
+}
+
+.center {
+  margin: 0px auto;
+  text-align: center;
 }
 
 .main-nav {

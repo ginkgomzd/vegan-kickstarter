@@ -16,3 +16,31 @@
 .favorite-saved {
   color: $yellow;
 }
+
+.tab-style {
+  display: inline-block;
+  margin: 0;
+
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+
+  padding: 15px 1px;
+
+  background: $lightGray;
+  background: -moz-linear-gradient(top, $lightGray 0%, $whiteGray 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, $lightGray), color-stop(100%, $whiteGray));
+  background: -webkit-linear-gradient(top, $lightGray 0%, $whiteGray 100%);
+  background: -o-linear-gradient(top, $lightGray 0%, $whiteGray 100%);
+  background: -ms-linear-gradient(top, $lightGray 0%, $whiteGray 100%);
+  background: linear-gradient(to bottom, $lightGray 0%, $whiteGray 100%);
+}
+
+.tab-style:not(:first-child) {
+  border-left: 1px solid $darkGray;
+}
+
+.tab-style.tab-style-active {
+  background: $mediumGray;
+  color: $limeGreen;
+}

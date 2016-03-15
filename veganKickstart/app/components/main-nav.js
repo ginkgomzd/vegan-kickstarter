@@ -14,6 +14,9 @@ export default Ember.Component.extend({
     },
     settingsAction: function () {
       this.sendAction("settingsAction");
+    },
+    searchAction: function () {
+      this.sendAction("searchAction");
     }
   }
 });

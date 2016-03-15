@@ -17,8 +17,11 @@ export default Ember.Controller.extend({
     executeBackAction: function() {
       window.history.back();
     },
-    goToSettings: function() {
+    gotoSettings: function() {
       this.transitionToRoute("settings");
+    },
+    gotoSearch: function() {
+      this.transitionToRoute("search");
     }
   }
 });
