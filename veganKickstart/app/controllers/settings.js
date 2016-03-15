@@ -36,19 +36,27 @@ export default Ember.Controller.extend({
   init: function() {},
   actions: {
     facebookLogin: function() {
-      alert("This isn't complete yet");
-      /*
+      //alert("This isn't complete yet");
+
       var that = this;
       this.get("facebook").login().then(function(userData) {
-          console.log(userData);
-          alert(userData);
+          //console.log(userData);
+          that.get("settings").save("facebookUserID", userData.authResponse.userID);
+          that.set("model.loggedin", true);
         },
         function(error) {
           console.log("Facebook Login Error:", error);
           alert(error);
         }
       );
-*/
+    },
+    facebookLogout: function() {
+      var that = this;
+      this.get("facebook").logout().then(function() {
+        that.set("model.loggedin", false);
+      }, function() {
+        console.log("Error with Logout");
+      });
     }
   }
 });
