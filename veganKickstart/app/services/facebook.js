@@ -4,7 +4,7 @@ var facebookService = Ember.Service.extend({
   login: function() {
     var that = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      if (window.facebookConnectPlugin) {
+      if (facebookConnectPlugin) {
         facebookConnectPlugin.login(["public_profile"], function (userData) {
             that.loginSuccess(userDate);
             resolve(userData);
@@ -12,7 +12,7 @@ var facebookService = Ember.Service.extend({
           reject
         );
       } else {
-        reject();
+        reject("Unable to load Facebook Connect");
       }
     });
   },
@@ -22,24 +22,24 @@ var facebookService = Ember.Service.extend({
   getFacebookToken: function() {
     var that = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      if (window.facebookConnectPlugin) {
+      if (facebookConnectPlugin) {
         facebookConnectPlugin.getAccessToken(function (token) {
           resolve(token);
         });
       } else {
-        reject();
+        reject("Unable to load Facebook Connect");
       }
     });
   },
   loginStatus: function() {
     var that = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      if (window.facebookConnectPlugin) {
+      if (facebookConnectPlugin) {
         facebookConnectPlugin.getLoginStatus(function onLoginStatus(status) {
           resolve(status);
         });
       } else {
-        reject();
+        reject("Unable to load Facebook Connect");
       }
     });
   }
