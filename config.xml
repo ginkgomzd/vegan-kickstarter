@@ -21,17 +21,15 @@
     <platform name="android">
         <preference name="android-minSdkVersion" value="15" />
         <preference name="android-targetSdkVersion" value="22" />
-        <preference name="card_view-cardBackgroundColo" value="@android:color/white" />
         <allow-intent href="market:*" />
+        <framework src="com.facebook.android:facebook-android-sdk:4.8.0"/>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <!--
     <plugin name="cordova-plugin-facebook4" spec="https://github.com/jeduan/cordova-plugin-facebook4">
         <variable name="APP_ID" value="1661929367400739" />
         <variable name="APP_NAME" value="21DayVeganKickstart" />
     </plugin>
-    //-->
 </widget>
