@@ -14,7 +14,7 @@ export default Ember.Route.extend({
 
     if (startedDateString) {
       var started = new Date(startedDateString);
-      day = this.get("dateHelper").daysBetween(started);
+      day = this.get("dateHelper").daysBetween(started) + 1;
     } else {
       this.get("settings").save("startedKickstarter", this.get("dateHelper").formatDate());
       day = 1;
