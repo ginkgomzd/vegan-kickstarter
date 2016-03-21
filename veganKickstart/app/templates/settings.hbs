@@ -6,7 +6,7 @@
 
 <div class="darkGrayBar"><span class="title">{{ts "login" "Login"}}</span></div>
 <!--// Login info //-->
-{{#if model.loggedin}}
+{{#if cognito.loggedIn}}
   <div class="loginForm">
     <div {{action "facebookLogout"}} class="facebook-button">{{ts "logout-facebook" "Logout"}}</div>
   </div>

@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   settings: Ember.inject.service('settings'),
+  cognito: Ember.inject.service('cognito'),
   dateHelper: Ember.inject.service('date-functions'),
   facebook: Ember.inject.service('facebook'),
   showBackButton: 'always',
@@ -39,14 +40,12 @@ export default Ember.Controller.extend({
       //alert("This isn't complete yet");
 
       var that = this;
-      this.get("facebook").login().then(function(userData) {
-          //console.log(userData);
-          that.get("settings").save("facebookUserID", userData.authResponse.userID);
-          that.set("model.loggedin", true);
+      this.get("cognito").facebookLogin().then(function() {
+          //todo: Do we need to do anything here?
+        //that.get("cognito").syncSettings();
         },
         function(error) {
-          console.log("Facebook Login Error:", error);
-          alert(error);
+          //todo: Let the user know we weren't able to log them in.
         }
       );
     },
