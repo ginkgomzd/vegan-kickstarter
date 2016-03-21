@@ -8,31 +8,12 @@
 @import "settings";
 @import "buttons";
 @import "tabs";
+@import "layout";
 @import "android";
 @import "ios";
 @import "imageWidget";
 @import "bootstrap";
 
-.clear {
-  height: 0px;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  clear: both;
-}
-
-.right {
-  float: right;
-}
-
-.left {
-  float: left;
-}
-
-.center {
-  margin: 0px auto;
-  text-align: center;
-}
 
 .main-nav {
   padding-left: 10px;

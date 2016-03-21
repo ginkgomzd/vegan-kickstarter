@@ -28,7 +28,7 @@
   <div class="searchResults">
     {{#each results as |recipe|}}
       <div class="media greenBlock chevronRight" {{action "gotoRecipe" recipe.id}}>
-        <div class="media-left">
+        <div class="media-left recipe-thumbnail">
           {{#if recipe.images.firstObject}}
             <img class="img-responsive media-object" src="data:{{recipe.images.firstObject.mimeType}};base64,{{recipe.images.firstObject.imageData}}">
           {{else}}
