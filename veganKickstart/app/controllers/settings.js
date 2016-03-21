@@ -4,7 +4,6 @@ export default Ember.Controller.extend({
   settings: Ember.inject.service('settings'),
   cognito: Ember.inject.service('cognito'),
   dateHelper: Ember.inject.service('date-functions'),
-  facebook: Ember.inject.service('facebook'),
   showBackButton: 'always',
 
   /**
@@ -37,25 +36,17 @@ export default Ember.Controller.extend({
   init: function() {},
   actions: {
     facebookLogin: function() {
-      //alert("This isn't complete yet");
-
       var that = this;
       this.get("cognito").facebookLogin().then(function() {
-          //todo: Do we need to do anything here?
-        //that.get("cognito").syncSettings();
+          //I don't think we need to do anything here.
         },
         function(error) {
-          //todo: Let the user know we weren't able to log them in.
+          //todo: Let the user know we weren't able to log them in?
         }
       );
     },
     facebookLogout: function() {
-      var that = this;
-      this.get("facebook").logout().then(function() {
-        that.set("model.loggedin", false);
-      }, function() {
-        console.log("Error with Logout");
-      });
+      this.get("cognito").logout();
     }
   }
 });
