@@ -5,19 +5,20 @@ var cognitoService = Ember.Service.extend({
   settings: Ember.inject.service('settings'),
   loggedIn: function() {return false;}.property(),
   startSession: function() {
-    var cognitoIDC = new AWS.CognitoIdentityCredentials({
+    AWS.config.region = EmberENV.AWS.CognitoRegion;
+    var params = {
       IdentityPoolId: EmberENV.AWS.CognitoRegion + ':' + EmberENV.AWS.CognitoIdentityPool
-    });
+    };
     var fbToken = this.get("settings").load("facebookToken");
     if(fbToken) {
-      cognitoIDC.params.Logins = {};
-      cognitoIDC.params.Logins["graph.facebook.com"] = fbToken;
-      cognitoIDC.expired = true;
+      params.Logins = {"graph.facebook.com": fbToken};
       this.set("loggedIn", true);
     }
-
+    var cognitoIDC = new AWS.CognitoIdentityCredentials(params);
     AWS.config.credentials = cognitoIDC;
-    this.initCognitoDataset();
+    if(this.isLoggedIn()) {
+      this.initCognitoDataset();
+    }
   },
   initCognitoDataset: function() {
     var that = this;
@@ -26,6 +27,11 @@ var cognitoService = Ember.Service.extend({
         var client = new AWS.CognitoSyncManager();
         client.openOrCreateDataset(EmberENV.AWS.CognitoDataset, function(err, dataset) {
           that.dataset = dataset;
+          if(that.isLoggedIn()) {
+            that.syncSettings().then(function() {
+              that.preloadSettings();
+            });
+          }
           resolve(dataset);
         });
       });
@@ -37,16 +43,14 @@ var cognitoService = Ember.Service.extend({
     AWS.config.credentials.params.Logins[providerName] = token;
     AWS.config.credentials.expired = true;
     this.set("loggedIn", true);
-    this.initCognitoDataset().then(function() {
-      that.preloadSettings();
-    });
+    this.initCognitoDataset();
   },
   facebookLogin: function() {
     var that = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       that.get("facebook").login().then(
         function(userData) {
-          that.get("settings").save("facebookToken", userData.authResponse.accessToken);
+          that.get("settings").save("facebookToken", userData.authResponse.accessToken, false);
           that.login("graph.facebook.com", userData.authResponse.accessToken);
           resolve();
         },
@@ -57,52 +61,75 @@ var cognitoService = Ember.Service.extend({
     });
   },
   preloadSettings: function() {
+    var that = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      if(!that.dataset) {
+        return reject();
+      }
 
+      that.dataset.getAll(function (err, data) {
+        if(err) {
+          reject(err);
+        } else {
+          that.get("settings").reloadAllSettings(data);
+          resolve();
+        }
+      });
+    });
   },
   syncSettings: function() {
-    //This code is copy/pasted directly from the sample on github
-    //see: https://github.com/aws/amazon-cognito-js
-    this.dataset.synchronize({
+    //console.log("Starting Cognito Sync");
+    var that = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      //This code is copy/pasted directly from the sample on github
+      //see: https://github.com/aws/amazon-cognito-js
 
-      onSuccess: function(dataset, newRecords) {
+      that.dataset.synchronize({
+        onSuccess: function(dataset, newRecords) {
+          //console.log("Sync Success: ", dataset);
+          resolve(dataset);
+        },
+        onFailure: function(err) {
+          //console.log("Sync Fail");
+          reject(err);
+        },
+        onConflict: function(dataset, conflicts, callback) {
+          //console.log("Sync Conflict");
+          var resolved = [];
+          for (var i=0; i<conflicts.length; i++) {
+            // Take remote version.
+            resolved.push(conflicts[i].resolveWithRemoteRecord());
 
-      },
-      onFailure: function(err) {
+            // Or... take local version.
+            // resolved.push(conflicts[i].resolveWithLocalRecord());
 
-      },
-      onConflict: function(dataset, conflicts, callback) {
-        var resolved = [];
-        for (var i=0; i<conflicts.length; i++) {
-          // Take remote version.
-          resolved.push(conflicts[i].resolveWithRemoteRecord());
+            // Or... use custom logic.
+            // var newValue = conflicts[i].getRemoteRecord().getValue() + conflicts[i].getLocalRecord().getValue();
+            // resolved.push(conflicts[i].resolveWithValue(newValue);
+          }
 
-          // Or... take local version.
-          // resolved.push(conflicts[i].resolveWithLocalRecord());
+          dataset.resolve(resolved, function() {
+            return callback(true);
+          });
 
-          // Or... use custom logic.
-          // var newValue = conflicts[i].getRemoteRecord().getValue() + conflicts[i].getLocalRecord().getValue();
-          // resolved.push(conflicts[i].resolveWithValue(newValue);
-        }
+          // Or... callback false to stop the synchronization process.
+          // return callback(false);
+        },
 
-        dataset.resolve(resolved, function() {
+        onDatasetDeleted: function(dataset, datasetName, callback) {
+          //console.log("Sync Deleted");
+          // Return true to delete the local copy of the dataset.
+          // Return false to handle deleted datasets outside the synchronization callback.
           return callback(true);
-        });
+        },
 
-        // Or... callback false to stop the synchronization process.
-        // return callback(false);
-      },
-
-      onDatasetDeleted: function(dataset, datasetName, callback) {
-        // Return true to delete the local copy of the dataset.
-        // Return false to handle deleted datasets outside the synchronization callback.
-        return callback(true);
-      },
-
-      onDatasetMerged: function(dataset, datasetNames, callback) {
-        // Return true to continue the synchronization process.
-        // Return false to handle dataset merges outside the synchroniziation callback.
-        return callback(false);
-      }
+        onDatasetMerged: function(dataset, datasetNames, callback) {
+          //console.log("Sync Merge");
+          // Return true to continue the synchronization process.
+          // Return false to handle dataset merges outside the synchroniziation callback.
+          return callback(true);
+        }
+      });
     });
   },
 
@@ -118,6 +145,7 @@ var cognitoService = Ember.Service.extend({
         if(!record) {
           reject(err);
         } else {
+          Ember.run.debounce(that, "syncSettings", 3000);
           resolve(record);
         }
       });
@@ -143,11 +171,11 @@ var cognitoService = Ember.Service.extend({
   isLoggedIn: function() {
     return this.get("loggedIn");
   },
-  Logout: function() {
+  logout: function() {
     AWS.config.credentials.params.Logins = {};
     AWS.config.credentials.expired = true;
     this.set("loggedIn", false);
-    this.get("settings").save("facebookToken", null);
+    this.get("settings").save("facebookToken", null, false);
   }
 });
 
