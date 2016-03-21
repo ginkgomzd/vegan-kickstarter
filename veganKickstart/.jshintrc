@@ -5,7 +5,10 @@
     "-Promise",
     "localforage",
     "EmberENV",
-    "cordova"
+    "cordova",
+    "facebookConnectPlugin",
+    "AWS",
+    "FB"
   ],
   "browser": true,
   "boss": true,
