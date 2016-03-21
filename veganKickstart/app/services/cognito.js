@@ -17,13 +17,29 @@ var cognitoService = Ember.Service.extend({
     }
 
     AWS.config.credentials = cognitoIDC;
+    this.initCognitoDataset();
+  },
+  initCognitoDataset: function() {
+    var that = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      AWS.config.credentials.get(function() {
+        var client = new AWS.CognitoSyncManager();
+        client.openOrCreateDataset(EmberENV.AWS.CognitoDataset, function(err, dataset) {
+          that.dataset = dataset;
+          resolve(dataset);
+        });
+      });
+    });
   },
   login: function(providerName, token) {
+    var that = this;
     AWS.config.credentials.params.Logins = {};
     AWS.config.credentials.params.Logins[providerName] = token;
     AWS.config.credentials.expired = true;
     this.set("loggedIn", true);
-    this.syncSettings();
+    this.initCognitoDataset().then(function() {
+      that.preloadSettings();
+    });
   },
   facebookLogin: function() {
     var that = this;
@@ -40,14 +56,89 @@ var cognitoService = Ember.Service.extend({
         });
     });
   },
+  preloadSettings: function() {
+
+  },
   syncSettings: function() {
-    console.log("Todo: Setup settings Sync");
+    //This code is copy/pasted directly from the sample on github
+    //see: https://github.com/aws/amazon-cognito-js
+    this.dataset.synchronize({
+
+      onSuccess: function(dataset, newRecords) {
+
+      },
+      onFailure: function(err) {
+
+      },
+      onConflict: function(dataset, conflicts, callback) {
+        var resolved = [];
+        for (var i=0; i<conflicts.length; i++) {
+          // Take remote version.
+          resolved.push(conflicts[i].resolveWithRemoteRecord());
+
+          // Or... take local version.
+          // resolved.push(conflicts[i].resolveWithLocalRecord());
+
+          // Or... use custom logic.
+          // var newValue = conflicts[i].getRemoteRecord().getValue() + conflicts[i].getLocalRecord().getValue();
+          // resolved.push(conflicts[i].resolveWithValue(newValue);
+        }
+
+        dataset.resolve(resolved, function() {
+          return callback(true);
+        });
+
+        // Or... callback false to stop the synchronization process.
+        // return callback(false);
+      },
+
+      onDatasetDeleted: function(dataset, datasetName, callback) {
+        // Return true to delete the local copy of the dataset.
+        // Return false to handle deleted datasets outside the synchronization callback.
+        return callback(true);
+      },
+
+      onDatasetMerged: function(dataset, datasetNames, callback) {
+        // Return true to continue the synchronization process.
+        // Return false to handle dataset merges outside the synchroniziation callback.
+        return callback(false);
+      }
+    });
   },
-  pushSetting: function(name, value) {
-    console.log("Todo: Setup pushSetting");
+
+  putSetting: function(key, value) {
+    var that = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+
+      if(!that.dataset) {
+        return reject();
+      }
+
+      that.dataset.put(key, value, function(err, record) {
+        if(!record) {
+          reject(err);
+        } else {
+          resolve(record);
+        }
+      });
+    });
   },
-  pullSetting: function(name) {
-    console.log("Todo: Setup pullSetting");
+  getSetting: function(key) {
+    var that = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+
+      if(!that.dataset) {
+        return reject();
+      }
+
+      that.dataset.get(key, function(err, value) {
+        if(!value) {
+          resolve(null);
+        } else {
+          resolve(value);
+        }
+      });
+    });
   },
   isLoggedIn: function() {
     return this.get("loggedIn");
