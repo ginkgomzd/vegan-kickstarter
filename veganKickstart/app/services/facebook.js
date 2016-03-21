@@ -4,10 +4,10 @@ var facebookService = Ember.Service.extend({
   init: function() {
     if (!this.canUseApp()) {
       window.fbAsyncInit = function () {
-        FB.init({ // this line replaces FB.init({
+        FB.init({
           appId: EmberENV.facebookAppID, // Facebook App ID
-          //status: false,  // check Facebook Login status
-          cookie: true,  // enable cookies to allow Parse to access the session
+          status: true,  // check Facebook Login status
+          //cookie: true,
           xfbml: false,  // initialize Facebook social plugins on the page
           version: 'v2.3' // point to the latest Facebook Graph API version
         });
@@ -66,10 +66,10 @@ var facebookService = Ember.Service.extend({
   logout: function() {
     var that = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      if (facebookConnectPlugin) {
+      if (that.canUseApp()) {
         facebookConnectPlugin.logout(resolve, reject);
       } else {
-        reject("Unable to load Facebook Connect");
+        FB.logout(resolve, reject);
       }
     });
   },
