@@ -3,9 +3,15 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   setupUtils: Ember.inject.service('setup'),
   settings: Ember.inject.service('settings'),
+  facebook: Ember.inject.service('facebook'),
+  cognito: Ember.inject.service('cognito'),
   dateHelper: Ember.inject.service('date-functions'),
   model: function () {
-    return this.get("setupUtils").appStartup();
+    var that = this;
+    return this.get("setupUtils").appStartup().then(function() {
+      that.get("cognito").startSession();
+      that.get("facebook").init();
+    });
   },
   afterModel: function(transition) {
     //This is where we will calculate which day should be shown
