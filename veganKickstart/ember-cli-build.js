@@ -33,6 +33,7 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
   app.import('bower_components/aws-sdk-js/dist/aws-sdk.min.js');
+  app.import('bower_components/amazon-cognito-js/dist/amazon-cognito.min.js');
 
   return app.toTree();
 };
