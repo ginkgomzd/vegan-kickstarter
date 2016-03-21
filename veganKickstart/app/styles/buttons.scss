@@ -44,3 +44,12 @@
   background: $mediumGray;
   color: $limeGreen;
 }
+
+.facebook-button {
+  background: url(images/facebook.png) no-repeat 8px center $facebookBlue;
+  width: 100%;
+  padding: 10px 10px 10px 46px;
+  color:  white;
+  font-weight: bold;
+  border-radius: 4px;
+}

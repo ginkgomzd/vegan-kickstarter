@@ -52,3 +52,20 @@
   padding: 10px 5px 10px 5px;
   margin: 5px;
 }
+
+.greenBlock {
+  width: 100%;
+  border-bottom: 1px solid $hunterGreen;
+  background: $lightGreen;
+  margin: 0;
+  padding: 5px;
+}
+.greenBlock:first-child {
+  border-top: 1px solid $hunterGreen;
+}
+
+.chevronRight {
+  background-image: url(images/right_arrow.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+}

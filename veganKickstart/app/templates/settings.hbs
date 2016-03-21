@@ -1,1 +1,31 @@
-Settings
+<div class="greenBar">
+  <div class="triangle"></div>
+</div>
+<div class="clear"></div>
+
+
+<div class="darkGrayBar"><span class="title">{{ts "login" "Login"}}</span></div>
+<!--// Login info //-->
+{{#if cognito.loggedIn}}
+  <div class="loginForm">
+    <div {{action "facebookLogout"}} class="facebook-button">{{ts "logout-facebook" "Logout"}}</div>
+  </div>
+{{else}}
+  <div class="loginForm">
+    <div {{action "facebookLogin"}} class="facebook-button">{{ts "login-facebook" "Entrar con Facebook"}}</div>
+  </div>
+{{/if}}
+<div class="darkGrayBar"><span class="title">{{ts "settings" "Ajustes"}}</span></div>
+
+<!--// Settings Form //-->
+<div class="settingsForm">
+  <div class="greenBlock">
+    <span class="title">{{ts "today-is" "Hoy es"}}:</span>
+    <select class="right" onchange={{action (mut today) value="target.value"}}>
+      {{#each allDays as |day|}}
+        <option value="{{day}}" selected={{eq today day}}>{{ts "day" "Dei"}} {{day}}</option>
+      {{/each}}
+    </select>
+    <div class="clear"></div>
+  </div>
+</div>

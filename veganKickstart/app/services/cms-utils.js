@@ -3,7 +3,6 @@ import ajax from 'ic-ajax';
 
 var cmsUtils = Ember.Service.extend({
   store: Ember.inject.service('store'),
-  settings: Ember.inject.service('settings'),
   isServiceFactory: true,
   indexes: {},
   baseUrl: function() { return EmberENV.cmsUrl; },

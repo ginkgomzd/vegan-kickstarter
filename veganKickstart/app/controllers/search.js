@@ -113,9 +113,7 @@ export default Ember.Controller.extend(Ember.Evented, {
    * debounce so live update only happens after the user stops typing
    */
   updateSearchResults: function() {
-    Ember.run.debounce(this, function() {
-      this.searchRecipes();
-    }, 1000);
+    Ember.run.debounce(this, "searchRecipes", 1000);
   }.observes("queryString"),
 
 
