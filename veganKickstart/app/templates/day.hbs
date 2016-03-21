@@ -20,7 +20,7 @@
         </div>
 
 
-        <div class="darkGrayBar small spaceAtTop"><span class="title">{{ts 'menu-of-day' 'MENÚ DE HOY'}}:</span></div>
+        <div class="darkGrayBar small spaceAtTop"><span class="title">{{ts 'menu-of-day' 'Menú de hoy'}}:</span></div>
 
         <div class="dailyMenu">
           {{#each day.recipes as |recipe|}}
@@ -32,9 +32,10 @@
                   <img class="img-responsive media-object" src="assets/images/default.png" />
                 {{/if}}
               </div>
-              <div class="media-body">
-                <h4 class="media-heading">{{{recipe.name}}}</h4>
-                {{{summary recipe.description 100}}}
+              <div>
+                <h5 class="title">{{{recipe.name}}}<br /><span class="smaller">{{ts recipe.mealType}}</span></h5>
+
+                <div>{{{summary recipe.description 100}}}</div>
               </div>
             </div>
           {{/each}}
