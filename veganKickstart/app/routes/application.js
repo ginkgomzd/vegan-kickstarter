@@ -8,10 +8,7 @@ export default Ember.Route.extend({
   dateHelper: Ember.inject.service('date-functions'),
   model: function () {
     var that = this;
-    return this.get("setupUtils").appStartup().then(function() {
-      that.get("cognito").startSession();
-      that.get("facebook").init();
-    });
+    return this.get("setupUtils").appStartup();
   },
   afterModel: function(transition) {
     //This is where we will calculate which day should be shown
@@ -46,7 +43,7 @@ export default Ember.Route.extend({
         }
 
         var showBB = (mode === "always" || mode === platformName);
-        this.get("settings").sessionVar("showBackButton", showBB);
+        this.get("settings").setSessionVar("showBackButton", showBB);
       }, 5);
     }
   }
