@@ -21,6 +21,7 @@ module.exports = function(environment) {
       staticDataUpdatedDate: "2016-2-1",
       cmsUrl: "http://sandbox.vegetarianoen21diasapp.com",
       cmsApiPath: "api",
+      facebookAppID: "1661929367400739",
       AWS: {
         CognitoRegion: "us-east-1",
         CognitoIdentityPool: "b9bd02de-c3c9-45eb-bef5-c97db8a010f3"
