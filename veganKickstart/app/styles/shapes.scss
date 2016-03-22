@@ -27,6 +27,11 @@
   padding: 10px 0px;
   font-size: 1.85rem;
 }
+.darkGrayBar.small {
+  font-size: 1.1rem;
+  padding: 5px 0px;
+  border-top: 3px solid $limeGreen;
+}
 
 @media (max-width: 359px) {
   .darkGrayBar {
@@ -59,6 +64,10 @@
   background: $lightGreen;
   margin: 0;
   padding: 5px;
+}
+.greenBlock.media {
+  margin-top: 0;
+  font-size: 1em;
 }
 .greenBlock:first-child {
   border-top: 1px solid $hunterGreen;
