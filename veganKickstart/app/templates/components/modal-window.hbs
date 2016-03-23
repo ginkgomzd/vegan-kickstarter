@@ -1,0 +1,17 @@
+{{#if enabled}}
+  <div class="gsl-modal-fog">
+    <div class="gsl-modal-frame {{type}}">
+      <div class="greenBar">
+        <div class="triangle"></div>
+      </div>
+      <div class="gsl-modal-title darkGrayBar">
+        {{title}}
+      </div>
+      <div class="clear"></div>
+      <div class="gsl-modal-body">
+        {{message}}
+      </div>
+      <div {{action 'hideModal'}} class="gsl-modal-close">{{ts "close" "Close"}}</div>
+    </div>
+  </div>
+{{/if}}
