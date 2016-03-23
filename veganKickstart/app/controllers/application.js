@@ -1,10 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  pushServices: Ember.inject.service('push'),
   hideBackButton: true,
   init: function() {
     if (window.cordova) {
       Ember.$("body").addClass("platform-" + cordova.platformId);
+      this.get("pushServices").register(this, "receivedPush");
     } else {
       //Default the styling to that of android
       Ember.$("body").addClass("platform-android");
@@ -22,6 +24,9 @@ export default Ember.Controller.extend({
     },
     gotoSearch: function() {
       this.transitionToRoute("search");
+    },
+    receivedPush: function(data) {
+      console.log("Application received push: ", data);
     }
   }
 });
