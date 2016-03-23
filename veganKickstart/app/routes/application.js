@@ -59,9 +59,9 @@ export default Ember.Route.extend({
         this.get("settings").setSessionVar("showBackButton", showBB);
       }, 5);
     },
-    openModal: function(msg, title, type, timeout) {
+    openModal: function(msg, title, params) {
       var modal = this.controllerFor("application").get('comp-modal-main');
-      modal.send('showModal', msg, title, type, timeout);
+      modal.send('showModal', msg, title, params);
     },
     closeModal: function() {
       var modal = this.controllerFor("application").get('comp-modal-main');
