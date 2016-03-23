@@ -43,6 +43,14 @@ export default Ember.Route.extend({
         var showBB = (mode === "always" || mode === platformName);
         this.get("settings").setSessionVar("showBackButton", showBB);
       }, 5);
+    },
+    openModal: function(msg, title, type, timeout) {
+      var modal = this.controllerFor("application").get('comp-modal-main');
+      modal.send('showModal', msg, title, type, timeout);
+    },
+    closeModal: function() {
+      var modal = this.controllerFor("application").get('comp-modal-main');
+      modal.send('hideModal');
     }
   }
 });
