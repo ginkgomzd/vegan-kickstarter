@@ -25,7 +25,14 @@ module.exports = function(environment) {
       AWS: {
         CognitoRegion: "us-east-1",
         CognitoIdentityPool: "b9bd02de-c3c9-45eb-bef5-c97db8a010f3",
-        CognitoDataset: "VKA-UserData"
+        CognitoDataset: "VKA-UserData",
+        ApplicationArns: {
+          ios: "",
+          android: "arn:aws:sns:us-east-1:158654390092:app/GCM/vegankickstartes_MOBILEHUB_174895030",
+          amazon: "",
+          base: "arn:aws:sns:us-east-1:158654390092"
+        },
+        DefaultTopics: []
       },
       GCMSenderID: "155595325949"
     },
@@ -68,6 +75,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     //ENV.EmberENV.cmsUrl = "http://sandbox.vegetarianoen21diasapp.com";
+    ENV.EmberENV.AWS.DefaultTopics.push("BetaTesters");
   }
 
   if (environment === 'test') {
