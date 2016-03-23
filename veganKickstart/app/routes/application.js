@@ -6,9 +6,22 @@ export default Ember.Route.extend({
   facebook: Ember.inject.service('facebook'),
   cognito: Ember.inject.service('cognito'),
   dateHelper: Ember.inject.service('date-functions'),
+  isSetUp: function() {return false;}.property(),
   model: function () {
     var that = this;
-    return this.get("setupUtils").appStartup();
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      if (that.get("isSetUp")) {
+        resolve();
+      } else {
+        that.get("setupUtils").appStartup().then(function () {
+          that.set("isSetUp", true);
+          resolve();
+        }, function () {
+          that.set("isSetUp", true);
+          resolve();
+        });
+      }
+    });
   },
   afterModel: function(transition) {
     //This is where we will calculate which day should be shown
