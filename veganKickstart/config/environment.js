@@ -19,7 +19,7 @@ module.exports = function(environment) {
       },
       databaseVersion: 0.1,
       staticDataUpdatedDate: "2016-2-1",
-      cmsUrl: "http://sandbox.vegetarianoen21diasapp.com",
+      cmsUrl: "https://vegetarianoen21diasapp.com",
       cmsApiPath: "api",
       facebookAppID: "1661929367400739",
       AWS: {
@@ -41,6 +41,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    //ENV.EmberENV.cmsUrl = "http://sandbox.vegetarianoen21diasapp.com";
   }
 
   if (environment === 'test') {

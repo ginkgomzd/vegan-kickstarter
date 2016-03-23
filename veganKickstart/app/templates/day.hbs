@@ -3,7 +3,7 @@
 
     {{#each model.days as |day|}}
       <div class="day">
-        {{image-widget}}
+        {{image-widget image=day.image}}
         <div class="darkGrayBar"><span class="title">{{ts "day" "DÍA"}} {{day.id}}:</span></div>
 
 
@@ -26,11 +26,7 @@
           {{#each day.recipes as |recipe|}}
             <div class="media greenBlock chevronRight" {{action "viewRecipe" recipe.id}}>
               <div class="media-left recipe-thumbnail">
-                {{#if recipe.images.firstObject}}
-                  <img class="img-responsive media-object" src="data:{{recipe.images.firstObject.mimeType}};base64,{{recipe.images.firstObject.imageData}}">
-                {{else}}
-                  <img class="img-responsive media-object" src="assets/images/default.png" />
-                {{/if}}
+                {{image-widget image=recipe.images.firstObject decoration=false}}
               </div>
               <div>
                 <h5 class="title">{{{recipe.name}}}<br /><span class="smaller">{{ts recipe.mealType}}</span></h5>
