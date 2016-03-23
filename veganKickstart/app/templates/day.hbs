@@ -3,7 +3,7 @@
 
     {{#each model.days as |day|}}
       <div class="day">
-        {{image-widget}}
+        {{image-widget image=day.image}}
         <div class="darkGrayBar"><span class="title">{{ts "day" "DÍA"}} {{day.id}}:</span></div>
 
 
