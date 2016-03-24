@@ -39,3 +39,9 @@
   text-align: center;
   padding: 4px;
 }
+
+
+.gsl-modal-frame.error {
+  font-weight: bold;
+  color: $errorRed;
+}
