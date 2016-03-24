@@ -41,7 +41,8 @@ export default Ember.Controller.extend({
           //I don't think we need to do anything here.
         },
         function(error) {
-          //todo: Let the user know we weren't able to log them in?
+          //Let the user know we weren't able to log them in?
+          this.send("openModal", ts("facebook-login-error", error), ts("Error"), {type: "error"});
         }
       );
     },
