@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 var facebookService = Ember.Service.extend({
-  init: function() {
+  setup: function() {
     if (!this.canUseApp()) {
       window.fbAsyncInit = function () {
         FB.init({
