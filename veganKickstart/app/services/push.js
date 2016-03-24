@@ -36,6 +36,7 @@ var pushServices = Ember.Service.extend({
     } else {
       console.log("Push notifications Disabled");
     }
+    this._super();
   },
   register: function(context, notificationAction) {
     if (this.push) {

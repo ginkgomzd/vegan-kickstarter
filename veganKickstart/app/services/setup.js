@@ -98,8 +98,8 @@ var setupService = Ember.Service.extend({
         Ember.RSVP.hash(staticPromises).then(function() {
           setup.checkForUpdates().then(function() {
             setup.get("cognito").startSession();
-            setup.get("facebook").init();
-            setup.get("ts").init();
+            setup.get("facebook").setup();
+            setup.get("ts").setup();
             resolve();
           });
         });
