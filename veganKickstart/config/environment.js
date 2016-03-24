@@ -32,8 +32,33 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    contentSecurityPolicyMeta: true,
+    contentSecurityPolicy: {
+      'default-src': ["'self'", "https://vegetarianoen21diasapp.com"],
+
+      // Allow scripts from:
+      'script-src': ["'self'", "https://connect.facebook.net"],
+
+      'font-src': ["'self'", "http://fonts.gstatic.com"],
+
+      // Allow data (ajax/websocket) from:
+      'connect-src': ["'self'", "https://vegetarianoen21diasapp.com"],
+
+      // Allow images from the origin itself (i.e. current domain)
+      'img-src': ["'self'", "data:", "https://*.facebook.com"],
+
+      'style-src': ["'self'", "'unsafe-inline'"],
+
+      'frame-src': ["'self'", "*.facebook.com"],
+
+      'media-src': null
     }
   };
+
+
+
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
