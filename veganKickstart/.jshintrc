@@ -9,7 +9,8 @@
     "facebookConnectPlugin",
     "AWS",
     "FB",
-    "PushNotification"
+    "PushNotification",
+    "ts"
   ],
   "browser": true,
   "boss": true,
