@@ -30,7 +30,11 @@ export default Ember.Controller.extend({
       this.transitionToRoute("day", this.get("vka").getToday());
     },
     receivedPush: function(data) {
-      console.log("Application received push: ", data);
+      //console.log("Application received push: ", data);
+      var msg = data.message || data.additionalData.default || false;
+      if (msg) {
+        this.send("openModal", msg, data.title, data.additionalData);
+      }
     }
   }
 });
