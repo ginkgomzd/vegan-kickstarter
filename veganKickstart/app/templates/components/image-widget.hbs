@@ -13,7 +13,7 @@
     {{/each}}
   {{/slick-slider}}
 {{else}}
-  {{#if image}}
+  {{#if image.imageData}}
     <img src="data:{{image.mimeType}};base64,{{image.imageData}}" />
   {{else}}
     <img src="assets/images/default.png" />
