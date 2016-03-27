@@ -7,6 +7,6 @@ export default Ember.Component.extend({
     return (this.get("decoration") !== false);
   }.property(),
   didInsertElement: function didInsertElement() {
-    this.$(".slick-list").css("height", "auto");
+    this.$().find(".slick-list").css("height", "auto");
   }
 });
