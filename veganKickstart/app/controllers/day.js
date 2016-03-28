@@ -8,13 +8,14 @@ export default Ember.Controller.extend(Ember.Evented, {
 
   actions: {
     slickInit: function(obj) {
-      Ember.$(obj).find(".slick-list").css('height', "100%");
+      Ember.$(obj).find(".slick-list").css({"height": "100%", "width": "100%"});
     },
     viewRecipe: function(recipe) {
       this.transitionToRoute("recipe", recipe);
     },
     beforeSlideChange: function(slick, currentSlide, nextSlide) {
-      if(currentSlide !== nextSlide) {
+      console.log(currentSlide, nextSlide);
+      if(currentSlide !== nextSlide && !isNaN(currentSlide)) {
         this.set("firstSlide", currentSlide);
         this.set("changing", true);
       }
