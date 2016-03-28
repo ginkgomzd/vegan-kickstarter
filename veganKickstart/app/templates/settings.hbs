@@ -23,7 +23,7 @@
     <span class="title">{{ts "today-is" "Hoy es"}}:</span>
     <select class="right" onchange={{action (mut today) value="target.value"}}>
       {{#each allDays as |day|}}
-        <option value="{{day}}" selected={{eq today day}}>{{ts "day" "Dei"}} {{day}}</option>
+        <option value="{{day}}" selected={{eq today day}}>{{ts "day" "Día"}} {{day}}</option>
       {{/each}}
     </select>
     <div class="clear"></div>

@@ -18,7 +18,10 @@ var dateServices = Ember.Service.extend({
 
   daysBetween: function(a, b) {
     b = b || new Date();
-    return Math.ceil(Math.abs(a.getTime() - b.getTime()) / this.secondsPerDay);
+    a = new Date(this.formatDate(a));
+    b = new Date(this.formatDate(b));
+
+    return Math.round(Math.abs(a.getTime() - b.getTime()) / this.secondsPerDay);
   },
 
   daysAgo: function(days, date) {
