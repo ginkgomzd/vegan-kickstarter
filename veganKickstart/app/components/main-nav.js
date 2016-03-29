@@ -17,6 +17,9 @@ export default Ember.Component.extend({
     },
     searchAction: function () {
       this.sendAction("searchAction");
+    },
+    todayAction: function () {
+      this.sendAction("viewToday");
     }
   }
 });

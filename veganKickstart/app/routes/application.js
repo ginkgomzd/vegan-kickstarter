@@ -3,31 +3,16 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   setupUtils: Ember.inject.service('setup'),
   settings: Ember.inject.service('settings'),
+  vka: Ember.inject.service('vka'),
   facebook: Ember.inject.service('facebook'),
   cognito: Ember.inject.service('cognito'),
-  dateHelper: Ember.inject.service('date-functions'),
   model: function () {
     var that = this;
     return this.get("setupUtils").appStartup();
   },
   afterModel: function(transition) {
-    //This is where we will calculate which day should be shown
-    var startedDateString = this.get("settings").load("startedKickstarter");
-    var day;
-
-    if (startedDateString) {
-      var started = new Date(startedDateString);
-      day = this.get("dateHelper").daysBetween(started) + 1;
-    } else {
-      this.get("settings").save("startedKickstarter", this.get("dateHelper").formatDate());
-      day = 1;
-    }
-
-    if ((day > 21) || day === "Invalid Date") {
-      this.transitionTo("day", 1);
-    } else {
-      this.transitionTo("day", day);
-    }
+    //Start by showing "today"
+    this.transitionTo("day", this.get("vka").getToday());
   },
   actions: {
     didTransition: function(transition) {

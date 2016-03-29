@@ -1,0 +1,81 @@
+
+.main-nav {
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow: hidden;
+  vertical-align: middle;
+  padding-bottom: 0;
+}
+
+.main-nav.bb-visible {
+
+  transition: padding 0s linear 500ms;
+}
+
+.main-nav.bb-visible .title {
+  width: 0;
+  animation: hideTitle 500ms;
+}
+
+.main-nav.bb-hidden .title {
+  width: 80%;
+  animation: showTitle 1000ms;
+}
+
+@keyframes hideTitle {
+  0% {width: 80%;}
+  100% {width: 0;}
+}
+
+@keyframes showTitle {
+  0% {width: 0;}
+  50% {width: 0;}
+  100% {width: 80%;}
+}
+
+.main-nav .title {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  width: 80%;
+}
+
+.main-nav .title .title-text {
+  display: inline-block;
+  width: 500px;
+  padding-left: 5px;
+}
+
+.today-button, .back-button {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.main-nav .nav-button, .main-nav .nav-button.glyphicon {
+  display: inline-block;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 0;
+  padding: 0 !important;
+}
+
+
+.main-nav.bb-hidden .nav-button {
+  width: 30px;
+  -webkit-transition: width 500ms;
+  transition: width 500ms linear;
+}
+
+.main-nav.bb-visible .nav-button {
+  -webkit-transition: width 500ms linear 500ms;
+  transition: width 500ms linear 500ms;
+  width: 25%;
+}
+
+.main-nav.bb-hidden .nav-button.today-button, .main-nav.bb-hidden .nav-button.back-button {
+  width: 0;
+  -webkit-transition: width 500ms;
+  transition: width 500ms linear;
+}

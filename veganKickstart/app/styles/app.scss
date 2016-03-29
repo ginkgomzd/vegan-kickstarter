@@ -9,19 +9,9 @@
 @import "buttons";
 @import "tabs";
 @import "layout";
+@import "main-nav";
 @import "android";
 @import "ios";
 @import "imageWidget";
 @import "bootstrap";
 
-
-.main-nav {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-.main-nav .title {
-  margin-left: 5px;
-}
-.main-nav.bb-hidden .title {
-  margin-left: 28px;
-}

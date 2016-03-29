@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  vka: Ember.inject.service('vka'),
   hideBackButton: true,
   init: function() {
     if (window.cordova) {
@@ -22,6 +23,9 @@ export default Ember.Controller.extend({
     },
     gotoSearch: function() {
       this.transitionToRoute("search");
+    },
+    viewToday: function() {
+      this.transitionToRoute("day", this.get("vka").getToday());
     }
   }
 });
