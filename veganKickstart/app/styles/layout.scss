@@ -26,3 +26,12 @@
 .ember-view p {
   margin: 1px;
 }
+
+.copy {
+  width: 100%;
+  border: 1px solid $hunterGreen;
+  margin-bottom: 10px;
+  background: $lightGreen;
+  padding: 5px;
+  text-align: center;
+}
