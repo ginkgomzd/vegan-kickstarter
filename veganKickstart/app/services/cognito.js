@@ -195,6 +195,7 @@ var cognitoService = Ember.Service.extend({
 
       sns.createPlatformEndpoint(params, function (err, data) {
         //data.EndpointArn: The ARN for the newly created endpoint
+        //ARN Definition: http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
         if(data && data.EndpointArn) {
           that.get("settings").save("EndpointArn", data.EndpointArn, false);
           //Subscribe to all default topics.
