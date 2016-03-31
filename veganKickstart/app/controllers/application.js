@@ -2,10 +2,12 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   vka: Ember.inject.service('vka'),
+  pushServices: Ember.inject.service('push'),
   hideBackButton: true,
   init: function() {
     if (window.cordova) {
       Ember.$("body").addClass("platform-" + cordova.platformId);
+      this.get("pushServices").register(this, "receivedPush");
     } else {
       //Default the styling to that of android
       Ember.$("body").addClass("platform-android");
@@ -26,6 +28,13 @@ export default Ember.Controller.extend({
     },
     viewToday: function() {
       this.transitionToRoute("day", this.get("vka").getToday());
+    },
+    receivedPush: function(data) {
+      //console.log("Application received push: ", data);
+      var msg = data.message || data.additionalData.default || false;
+      if (msg) {
+        this.send("openModal", msg, data.title, data.additionalData);
+      }
     }
   }
 });

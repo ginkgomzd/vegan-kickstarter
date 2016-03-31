@@ -8,7 +8,9 @@
     "cordova",
     "facebookConnectPlugin",
     "AWS",
-    "FB"
+    "FB",
+    "PushNotification",
+    "ts"
   ],
   "browser": true,
   "boss": true,

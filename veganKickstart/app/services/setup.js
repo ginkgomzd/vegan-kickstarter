@@ -13,6 +13,7 @@ var setupService = Ember.Service.extend({
   cmsUtils: Ember.inject.service('cmsUtils'),
   facebook: Ember.inject.service('facebook'),
   cognito: Ember.inject.service('cognito'),
+  ts: Ember.inject.service('ts'),
   checkForUpdates: function() {
     var setup = this;
     //Calculate the last updated date
@@ -97,7 +98,8 @@ var setupService = Ember.Service.extend({
         Ember.RSVP.hash(staticPromises).then(function() {
           setup.checkForUpdates().then(function() {
             setup.get("cognito").startSession();
-            setup.get("facebook").init();
+            setup.get("facebook").setup();
+            setup.get("ts").setup();
             resolve();
           });
         });

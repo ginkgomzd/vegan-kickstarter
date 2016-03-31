@@ -176,6 +176,58 @@ var cognitoService = Ember.Service.extend({
     AWS.config.credentials.expired = true;
     this.set("loggedIn", false);
     this.get("settings").save("facebookToken", null, false);
+  },
+
+
+  /*************[ Push related functions ]****************/
+
+  registerDevice: function(token) {
+    //we only need ot do this once per device/application pairing.
+    if (!this.get("settings").load("EndpointArn")) {
+      var that = this;
+      var sns = new AWS.SNS();
+      var params = {
+        PlatformApplicationArn: EmberENV.AWS.ApplicationArns[cordova.platformId],
+        Token: token,
+        //CustomUserData: "",
+        //Attributes: {}
+      };
+
+      sns.createPlatformEndpoint(params, function (err, data) {
+        //data.EndpointArn: The ARN for the newly created endpoint
+        //ARN Definition: http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
+        if(data && data.EndpointArn) {
+          that.get("settings").save("EndpointArn", data.EndpointArn, false);
+          //Subscribe to all default topics.
+          for(var i in EmberENV.AWS.DefaultTopics) {
+            if (EmberENV.AWS.DefaultTopics.hasOwnProperty(i)) {
+              that.subscribeToTopic(EmberENV.AWS.DefaultTopics[i]);
+            }
+          }
+        } else {
+          //Error
+          console.log("Error", err);
+        }
+      });
+    }
+  },
+  subscribeToTopic: function(topic) {
+    var endpointARN = this.get("settings").load("EndpointArn");
+    if(endpointARN) {
+      var sns = new AWS.SNS();
+      var params = {
+        TopicArn: EmberENV.AWS.ApplicationArns.base + ":" + topic,
+        Protocol: "application",
+        Endpoint: endpointARN
+      };
+      sns.subscribe(params, function(err, data) {
+        if(data) {
+          console.log(data);
+        } else {
+          console.log(err);
+        }
+      });
+    }
   }
 });
 
