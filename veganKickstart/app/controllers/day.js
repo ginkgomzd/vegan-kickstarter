@@ -24,7 +24,6 @@ export default Ember.Controller.extend(Ember.Evented, {
       this.transitionToRoute("recipe", recipe);
     },
     beforeSlideChange: function(slick, currentSlide, nextSlide) {
-      console.log(currentSlide, nextSlide);
       if(currentSlide !== nextSlide && !isNaN(currentSlide)) {
         this.set("firstSlide", currentSlide);
         this.set("changing", true);
