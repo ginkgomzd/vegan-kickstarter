@@ -7,7 +7,7 @@ var facebookService = Ember.Service.extend({
         FB.init({
           appId: EmberENV.facebookAppID, // Facebook App ID
           status: true,  // check Facebook Login status
-          //cookie: true,
+          cookie: true,
           xfbml: false,  // initialize Facebook social plugins on the page
           version: 'v2.3' // point to the latest Facebook Graph API version
         });
@@ -15,9 +15,11 @@ var facebookService = Ember.Service.extend({
         // Run code after the Facebook SDK is loaded.
       };
 
-      Ember.$('body').append(Ember.$("<div>").attr('id', 'fb-root'));
-      Ember.$.ajaxSetup({ cache: true });
-      Ember.$.getScript('https://connect.facebook.net/en_US/sdk.js');
+      if (Ember.$("#fb-root").length === 0) {
+        Ember.$('body').after(Ember.$("<div>").attr('id', 'fb-root'));
+        Ember.$.ajaxSetup({cache: true});
+        Ember.$.getScript('https://connect.facebook.net/en_US/sdk.js');
+      }
     }
   },
   appLogin: function() {

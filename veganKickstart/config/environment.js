@@ -27,7 +27,7 @@ module.exports = function(environment) {
         CognitoIdentityPool: "b9bd02de-c3c9-45eb-bef5-c97db8a010f3",
         CognitoDataset: "VKA-UserData",
         ApplicationArns: {
-          ios: "",
+          ios: "arn:aws:sns:us-east-1:158654390092:app/APNS/vegankickstartes_MOBILEHUB_174895030",
           android: "arn:aws:sns:us-east-1:158654390092:app/GCM/vegankickstartes_MOBILEHUB_174895030",
           amazon: "",
           base: "arn:aws:sns:us-east-1:158654390092"
@@ -44,7 +44,7 @@ module.exports = function(environment) {
 
     contentSecurityPolicyMeta: true,
     contentSecurityPolicy: {
-      'default-src': ["'self'", "https://vegetarianoen21diasapp.com"],
+      'default-src': ["'self'", "https://vegetarianoen21diasapp.com", "http://sandbox.vegetarianoen21diasapp.com"],
 
       // Allow scripts from:
       'script-src': ["'self'", "https://connect.facebook.net"],
@@ -52,14 +52,14 @@ module.exports = function(environment) {
       'font-src': ["'self'", "http://fonts.gstatic.com"],
 
       // Allow data (ajax/websocket) from:
-      'connect-src': ["'self'", "https://vegetarianoen21diasapp.com"],
+      'connect-src': ["'self'", "https://vegetarianoen21diasapp.com", "http://sandbox.vegetarianoen21diasapp.com", "https://*.amazonaws.com/"],
 
       // Allow images from the origin itself (i.e. current domain)
-      'img-src': ["'self'", "data:", "https://*.facebook.com"],
+      'img-src': ["'self'", "data:", "https://*.facebook.com", "http://sandbox.vegetarianoen21diasapp.com"],
 
       'style-src': ["'self'", "'unsafe-inline'"],
 
-      'frame-src': ["'self'", "*.facebook.com"],
+      'frame-src': ["'self'", "https://*.facebook.com", "http://*.facebook.com", "gap://ready"],
 
       'media-src': null
     }

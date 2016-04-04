@@ -27,6 +27,8 @@
 
   padding: 15px 1px;
 
+  cursor: pointer;
+
   background: $lightGray;
   background: -moz-linear-gradient(top, $lightGray 0%, $whiteGray 100%);
   background: -webkit-gradient(left top, left bottom, color-stop(0%, $lightGray), color-stop(100%, $whiteGray));
@@ -52,4 +54,13 @@
   color:  white;
   font-weight: bold;
   border-radius: 4px;
+}
+
+/**
+* This is needed because on mobile safari any element that doesn't
+* have a cursor set to pointer, and isn't a button or anchor doesn't
+* have the click event handler attached/it is ignored.
+**/
+.clickable {
+  cursor: pointer;
 }

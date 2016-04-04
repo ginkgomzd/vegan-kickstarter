@@ -8,14 +8,14 @@
 <!--// Login info //-->
 {{#if cognito.loggedIn}}
   <div class="loginForm">
-    <div {{action "facebookLogout"}} class="facebook-button">{{ts "logout-facebook" "Logout"}}</div>
+    <div {{action "facebookLogout"}} class="clickable facebook-button">{{ts "logout-facebook" "Logout"}}</div>
   </div>
 {{else}}
   <div class="loginForm">
     <div class="copy">
       {{{ts "login-benefits" "Logging in allows you track your progress and favorite recipes on more than one device"}}}
     </div>
-    <div {{action "facebookLogin"}} class="facebook-button">{{ts "login-facebook" "Entrar con Facebook"}}</div>
+    <div {{action "facebookLogin"}} class="clickable facebook-button">{{ts "login-facebook" "Entrar con Facebook"}}</div>
   </div>
 {{/if}}
 <div class="darkGrayBar"><span class="title">{{ts "settings" "Ajustes"}}</span></div>

@@ -64,6 +64,5 @@ export default Ember.Component.extend({
     this.defaults.clickToDismiss = this.get("clickToDismiss") || this.defaults.clickToDismiss;
     this.defaults.type = this.get("type") || this.defaults.type;
     this.defaults.showClose = this.get("showClose") || this.defaults.showClose;
-
   }.on('init')
 });
