@@ -30,6 +30,12 @@
         <icon density="xhdpi" src="res/icons/icon-xhdpi.png" />
         <icon density="xxhdpi" src="res/icons/icon-xxhdpi.png" />
         <icon density="xxxhdpi" src="res/icons/icon-xxxhdpi.png" />
+        <splash density="port-hdpi" src="res/splash/android-h.png" />
+        <splash density="port-ldpi" src="res/splash/android-l.png" />
+        <splash density="port-mdpi" src="res/splash/android-m.png" />
+        <splash density="port-xhdpi" src="res/splash/android-x.png" />
+        <splash density="port-xxhdpi" src="res/splash/android-xx.png" />
+        <splash density="port-xxxhdpi" src="res/splash/android-splash.png" />
     </platform>
     <platform name="ios">
         <content src="http://localhost:4200" />
@@ -55,7 +61,13 @@
         <icon height="87" src="res/icons/icon-small@3x.png" width="87" />
         <icon height="50" src="res/icons/icon-50.png" width="50" />
         <icon height="100" src="res/icons/icon-50@2x.png" width="100" />
-        
+        <splash height="480" src="res/splash/iphone/Default.png" width="320" />
+        <splash height="960" src="res/splash/iphone/Default@2x.png" width="640" />
+        <splash height="1136" src="res/splash/iphone/Default-568h@2x.png" width="640" />
+        <splash height="1334" src="res/splash/iphone/Default-667h@2x.png" width="750" />
+        <splash height="2208" src="res/splash/iphone/Default-736@2x.png" width="1242" />
+        <splash height="1024" src="res/splash/ipad/Default-Portrait.png" width="768" />
+        <splash height="2048" src="res/splash/ipad/Default-Portrait@2x.png" width="1536" />
     </platform>
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-facebook4" spec="https://github.com/jeduan/cordova-plugin-facebook4">
