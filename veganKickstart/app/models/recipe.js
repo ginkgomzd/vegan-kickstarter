@@ -9,5 +9,6 @@ export default DS.Model.extend({
   nutrition: DS.attr('string'),
   tags: DS.attr(),
   images: DS.hasMany("image"),
-  favorite: DS.attr("boolean", {"default": false})
+  favorite: DS.attr("boolean", {"default": false}),
+  url: DS.attr("string")
 });
