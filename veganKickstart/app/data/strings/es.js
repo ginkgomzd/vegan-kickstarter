@@ -45,5 +45,6 @@ var strings = {
 "cancel":"Cancelar",
 "back":"Retroceder",
 "today":"Hoy",
-"push-title": "¡Atención!"};
+"push-title": "¡Atención!",
+"checking-updates": "Comprobando actualizaciones"};
 export default strings;
