@@ -44,5 +44,6 @@ var strings = {
 "recipes":"Recetas",
 "cancel":"Cancelar",
 "back":"Retroceder",
-"today":"Hoy"};
+"today":"Hoy",
+"push-title": "¡Atención!"};
 export default strings;
