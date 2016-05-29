@@ -55,7 +55,7 @@ module.exports = function(environment) {
       'connect-src': ["'self'", "https://vegetarianoen21diasapp.com", "http://sandbox.vegetarianoen21diasapp.com", "https://*.amazonaws.com/"],
 
       // Allow images from the origin itself (i.e. current domain)
-      'img-src': ["'self'", "data:", "https://*.facebook.com", "http://sandbox.vegetarianoen21diasapp.com"],
+      'img-src': ["'self'", "data:", "https://*.facebook.com", "http://sandbox.vegetarianoen21diasapp.com", "https://vegetarianoen21diasapp.com"],
 
       'style-src': ["'self'", "'unsafe-inline'"],
 
