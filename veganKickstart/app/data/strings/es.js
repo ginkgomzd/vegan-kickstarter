@@ -46,5 +46,5 @@ var strings = {
 "back":"Retroceder",
 "today":"Hoy",
 "push-title": "¡Atención!",
-"checking-updates": "Comprobando actualizaciones"};
+"checking-updates": "Comprobar Actualizaciones"};
 export default strings;
