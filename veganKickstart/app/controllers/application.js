@@ -33,7 +33,8 @@ export default Ember.Controller.extend({
       //console.log("Application received push: ", data);
       var msg = data.message || data.additionalData.default || false;
       if (msg) {
-        this.send("openModal", msg, data.title, data.additionalData);
+        var title = data.title || ts("push-title");
+        this.send("openModal", msg, title, data.additionalData);
       }
     }
   }

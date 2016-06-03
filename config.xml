@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="org.pcrm.VeganKickstartES" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>VeganKickstart</name>
+    <name>Vegetariano en 21 días</name>
     <description>
-        A 21 Day Vegan Kickstarter! Spanish
+        21 días de recetas fáciles con fotos bonitas.
     </description>
     <author email="dev@ginkgostreet.com" href="http://www.ginkgostreet.com">
         Ginkgo Street Labs
