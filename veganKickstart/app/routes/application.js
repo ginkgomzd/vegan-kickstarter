@@ -12,12 +12,15 @@ export default Ember.Route.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       if (that.get("isSetUp")) {
         resolve();
+        if (navigator && navigator.splashscreen) { navigator.splashscreen.hide(); }
       } else {
         that.get("setupUtils").appStartup().then(function () {
           that.set("isSetUp", true);
+          if (navigator && navigator.splashscreen) { navigator.splashscreen.hide(); }
           resolve();
         }, function () {
           that.set("isSetUp", true);
+          if (navigator && navigator.splashscreen) { navigator.splashscreen.hide(); }
           resolve();
         });
       }
