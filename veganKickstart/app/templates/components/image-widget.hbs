@@ -9,12 +9,18 @@
 {{#if images}}
   {{#slick-slider autoplay=false arrows=false dots=showDots mobileFirst=true adaptiveHeight=true infinite=false swipeToSlide=true}}
     {{#each images as |image|}}
-      <div class="box carousel-slide"><img src="data:{{image.mimeType}};base64,{{image.imageData}}" /></div>
+      <div class="box carousel-slide">
+        {{#if image.remotePath}}
+          {{cached-image image=image}}
+        {{else}}
+          <img src="assets/images/default.png" />
+        {{/if}}
+      </div>
     {{/each}}
   {{/slick-slider}}
 {{else}}
-  {{#if image.imageData}}
-    <img src="data:{{image.mimeType}};base64,{{image.imageData}}" />
+  {{#if image.remotePath}}
+    {{cached-image image=image}}
   {{else}}
     <img src="assets/images/default.png" />
   {{/if}}
