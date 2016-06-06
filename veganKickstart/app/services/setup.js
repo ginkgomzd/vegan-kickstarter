@@ -87,6 +87,10 @@ var setupService = Ember.Service.extend({
     return new Ember.RSVP.Promise(function(resolve, reject) {
       setup.validateDatabaseVersion().then(function(fetchUserData) {
 
+        console.log("day", staticDayData.length);
+        console.log("staticRecipeData", staticRecipeData.length);
+        console.log("staticImageData", staticImageData.length);
+
         var staticPromises = {
           day: setup.loadStaticDataForModel(EmberENV.modelPaths.day, staticDayData),
           recipe: setup.loadStaticDataForModel(EmberENV.modelPaths.recipe, staticRecipeData),
