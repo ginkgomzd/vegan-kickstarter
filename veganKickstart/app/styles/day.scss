@@ -4,6 +4,11 @@
   width: 100%;
   overflow-y: auto;
 }
+
+#day-view .slick-list {
+  overflow-y: hidden;
+}
+
 #day-view .slick-slider {
   margin-bottom: 0;
 }

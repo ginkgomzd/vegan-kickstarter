@@ -33,6 +33,10 @@ export default Ember.Controller.extend(Ember.Evented, {
       if(this.changing) {
         Ember.$('#day-view').animate({scrollTop: 0}, 300);
         this.set("changing", false);
+
+        // resize the container to trim away extra height
+        var newHeight = Ember.$("#day-view .slick-current").height();
+        Ember.$("#day-view .slick-list").height(newHeight);
       }
     },
     reachedEdge: function(slick, direction) {
