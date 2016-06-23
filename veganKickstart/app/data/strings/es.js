@@ -27,7 +27,7 @@ var strings = {
 "menu-of-day":"Menú del día",
 "error-page":"Algo ha ido muy mal",
 "close":"Cerrar",
-"app-title":"Vegano en 21 días",
+"app-title":"Vegetariano en 21 días",
 "breakfast":"Desayuno",
 "lunch":"Almuerzo",
 "dinner":"Cena",
