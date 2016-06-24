@@ -13,6 +13,7 @@ export default Ember.Controller.extend(Ember.Evented, {
     return this._super();
   },
   currentDay: 1,
+  // Days are 1-indexed while slides are 0-indexed; hence the math below
   currentSlide: function() {return this.get("currentDay") - 1;}.property("currentDay"),
   actions: {
     slickInit: function(obj) {
@@ -29,6 +30,7 @@ export default Ember.Controller.extend(Ember.Evented, {
     },
     afterSlideChange: function(slick, slide) {
       if(this.changing) {
+        // Days are 1-indexed while slides are 0-indexed; hence the math below
         this.set("currentDay", slide + 1);
         Ember.$('#day-view').animate({scrollTop: 0}, 300);
         this.set("changing", false);
