@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend(Ember.Evented, {
   orientationServices: Ember.inject.service('orientation'),
   showBackButton: 'never',
+  queryParams: ['currentDay'],
   init: function() {
     this.get("orientationServices").registerCallback("day", "resize", this);
     return this._super();
@@ -11,10 +12,9 @@ export default Ember.Controller.extend(Ember.Evented, {
     this.get("orientationServices").removeCallback("day");
     return this._super();
   },
-  firstSlide: function() {
-    return this.get("model").firstSlide;
-  }.property("model"),
-
+  currentDay: 1,
+  // Days are 1-indexed while slides are 0-indexed; hence the math below
+  currentSlide: function() {return this.get("currentDay") - 1;}.property("currentDay"),
   actions: {
     slickInit: function(obj) {
       this.send("resize");
@@ -25,12 +25,13 @@ export default Ember.Controller.extend(Ember.Evented, {
     },
     beforeSlideChange: function(slick, currentSlide, nextSlide) {
       if(currentSlide !== nextSlide && !isNaN(currentSlide)) {
-        this.set("firstSlide", currentSlide);
         this.set("changing", true);
       }
     },
-    afterSlideChange: function() {
+    afterSlideChange: function(slick, slide) {
       if(this.changing) {
+        // Days are 1-indexed while slides are 0-indexed; hence the math below
+        this.set("currentDay", slide + 1);
         Ember.$('#day-view').animate({scrollTop: 0}, 300);
         this.set("changing", false);
       }

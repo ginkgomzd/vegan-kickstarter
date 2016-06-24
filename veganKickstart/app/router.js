@@ -6,7 +6,7 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('day', {path: '/day/:index'});
+  this.route('day', {path: '/day'});
   this.route('recipe', {path: '/recipe/:index'});
   this.route('login');
   this.route('settings');

@@ -33,7 +33,8 @@ export default Ember.Route.extend({
   afterModel: function(transition) {
     //Start by showing "today"
     this.get("status").complete();
-    this.transitionTo("day", this.get("vka").getToday());
+    var today = this.get("vka").getToday();
+    this.transitionTo("day", {"queryParams": {"currentDay": today}});
   },
   actions: {
     willTransition: function() {
