@@ -40,6 +40,11 @@
   }
 }
 
+.darkGrayBar .actions {
+  position: absolute;
+  right: 0;
+}
+
 .darkGrayBar .glyphicon {
   top: 3px;
 }
@@ -77,4 +82,5 @@
   background-image: url(images/right_arrow.png);
   background-repeat: no-repeat;
   background-position: right center;
+  padding-right: 32px;
 }

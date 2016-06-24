@@ -1,8 +1,10 @@
 {{image-widget images=model.images showDots=true}}
 <div class="darkGrayBar">
+  <div class="actions">
+    {{favorite-widget model=model}}
+    {{share-widget model=model}}
+  </div>
   <span class="title">{{{model.name}}}</span>
-  {{favorite-widget model=model}}
-  {{share-widget model=model}}
 </div>
 
 {{#em-tabs configName="vka"}}
