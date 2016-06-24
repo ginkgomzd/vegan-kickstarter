@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   settings: Ember.inject.service('settings'),
+  vka: Ember.inject.service('vka'),
   cognito: Ember.inject.service('cognito'),
   dateHelper: Ember.inject.service('date-functions'),
   showBackButton: 'always',
@@ -14,17 +15,8 @@ export default Ember.Controller.extend({
   }.property(),
 
   today: function() {
-    var started = this.get("settings").load("startedKickstarter");
-    var now = new Date();
-    if(started) {
-      var startedDate = new Date(started);
-      return this.get("dateHelper").daysBetween(startedDate, now);
-    } else {
-      var todaysDate = this.get("dateHelper").formatDate(now);
-      this.get("settings").save("startedKickstarter", todaysDate);
-      return 1;
-    }
-  }.property(),
+    return this.get("vka").getToday();
+  }.property("settings.startedKickstarter"),
 
   //This observer runs to update the day in the settings.
   updateDay: function() {
