@@ -27,7 +27,8 @@ export default Ember.Controller.extend({
       this.transitionToRoute("search");
     },
     viewToday: function() {
-      this.transitionToRoute("day", this.get("vka").getToday());
+      var today = this.get("vka").getToday();
+      this.transitionToRoute("day", {"queryParams": {"currentDay": today}});
     },
     receivedPush: function(data) {
       //console.log("Application received push: ", data);
