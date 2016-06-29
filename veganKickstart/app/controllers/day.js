@@ -48,7 +48,10 @@ export default Ember.Controller.extend(Ember.Evented, {
   },
   showDay22: function() {
     return (this.get("vka").getToday() > 21);
-  }.property("currentDay"),
+  }.property(),
+  updateShowDay22: function() {
+    this.set("showDay22", (this.get("vka").getToday() > 21));
+  },
   actions: {
     slickInit: function(obj) {
       this.send("resize");
