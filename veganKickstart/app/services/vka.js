@@ -24,6 +24,9 @@ var vkaServices = Ember.Service.extend({
     } else {
       return day;
     }
+  },
+  startOver: function() {
+    this.get("settings").save("startedKickstarter", this.get("dateHelper").formatDate());
   }
 });
 
