@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend(Ember.Evented, {
+  settings: Ember.inject.service('settings'),
   orientationServices: Ember.inject.service('orientation'),
   vka: Ember.inject.service('vka'),
   showBackButton: 'never',
@@ -45,6 +46,9 @@ export default Ember.Controller.extend(Ember.Evented, {
       this.set("today", today);
     }
   },
+  showDay22: function() {
+    return (this.get("vka").getToday() > 21);
+  }.property("currentDay"),
   actions: {
     slickInit: function(obj) {
       this.send("resize");
