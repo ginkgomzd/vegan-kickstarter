@@ -79,6 +79,17 @@ export default Ember.Controller.extend(Ember.Evented, {
     resize: function() {
       var top = Ember.$(".main-nav").outerHeight();
       Ember.$("#day-view").height(window.innerHeight - top);
+    },
+    startOver: function() {
+      this.get("vka").startOver();
+      this.set("currentDay", 1);
+      this.updateShowDay22();
+    },
+    myFavorites: function() {
+      this.transitionToRoute("search", {"queryParams": {"query": "favorites"}});
+    },
+    digDeeper: function() {
+      this.transitionToRoute("search", {"queryParams": {"query": ""}});
     }
   }
 });
