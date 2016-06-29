@@ -13,7 +13,13 @@ export default Ember.Controller.extend(Ember.Evented, {
   },
   currentDay: 1,
   // Days are 1-indexed while slides are 0-indexed; hence the math below
-  currentSlide: function() {return this.get("currentDay") - 1;}.property("currentDay"),
+  currentSlide: function() { return this.get("currentDay") - 1; }.property(),
+  /**
+   * We are doing this in a slightly unconventional way, as normally you can
+   * pass in an observer to property(), but in this instance, it doesn't seem
+   * to trigger properly, while observes() does.
+   */
+  watchCurrentDay: function() {this.set("currentSlide", this.get("currentDay") - 1);}.observes("currentDay"),
   actions: {
     slickInit: function(obj) {
       this.send("resize");
