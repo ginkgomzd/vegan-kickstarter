@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend(Ember.Evented, {
   showBackButton: 'always',
+  queryParams: ['query'],
+  query: "",
   sortProperty: function() {
     return "weight";
   }.property(),
@@ -12,8 +14,8 @@ export default Ember.Controller.extend(Ember.Evented, {
    * Returns a list of recipes that have been favorited.
    */
   favoriteRecipes: function() {
-    return this.get("model").recipes.filterBy("favorite", true);
-  }.property("model.recipes.@each"),
+    return this.get("model").filterBy("favorite", true);
+  }.property("model.@each"),
 
   /**
    * This function responds to changes in the sort params
@@ -65,7 +67,7 @@ export default Ember.Controller.extend(Ember.Evented, {
         return false;
       });
 
-      var recipes = this.get("model").recipes.filter(function (item) {
+      var recipes = this.get("model").filter(function (item) {
         //This is a shortcut to get all the data for an item in a single string.
         var haystack = JSON.stringify(item);
         var weight = 0;
@@ -101,12 +103,16 @@ export default Ember.Controller.extend(Ember.Evented, {
    * This fascilitates two-way data-binding
    */
   queryString: function() {
-    if (this.get("model").query === "favorites") {
+    if (this.get("query") === "favorites") {
       return "";
     } else {
-      return this.get("model").query;
+      return this.get("query");
     }
   }.property(),
+
+  syncQuery: function() {
+    this.set("query", this.get("queryString"));
+  }.observes("queryString"),
 
   /**
    * This function observes the queryString and does a
@@ -122,15 +128,15 @@ export default Ember.Controller.extend(Ember.Evented, {
    * the search box and set style for the active button
    */
   favoriteActive: function() {
-    if (this.get("model").query === "favorites") {
+    if (this.get("query") === "favorites") {
       return "tab-style-active";
     }
-  }.property("model.query"),
+  }.property("query"),
   searchActive: function() {
-    if (this.get("model").query !== "favorites") {
+    if (this.get("query") !== "favorites") {
       return "tab-style-active";
     }
-  }.property("model.query"),
+  }.property("query"),
   relevanceActive: function() {
     return (this.get("sortProperty") === "weight") ? "tab-style-active" : "";
   }.property("sortProperty"),
@@ -141,11 +147,11 @@ export default Ember.Controller.extend(Ember.Evented, {
 
   actions: {
     showSearch: function() {
-      this.set("model.query", this.get("queryString"));
+      this.set("query", this.get("queryString"));
       this.searchRecipes();
     },
     showFavorites: function() {
-      this.set("model.query", "favorites");
+      this.set("query", "favorites");
       this.set("results", this.get("favoriteRecipes"));
     },
     gotoRecipe: function(recipeId) {

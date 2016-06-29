@@ -1,10 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  queryParams: {
+    query: {
+      replace: true
+    }
+  },
   model: function (params) {
-    return Ember.RSVP.hash({
-      "recipes": this.get("store").findAll("recipe"),
-      "query": params.query
-    });
+    return this.get("store").findAll("recipe");
   }
 });
