@@ -4,10 +4,9 @@ export default Ember.Controller.extend(Ember.Evented, {
   orientationServices: Ember.inject.service('orientation'),
   showBackButton: 'never',
   queryParams: ['currentDay'],
-  init: function() {
+  onLoad: function() {
     this.get("orientationServices").registerCallback("day", "resize", this);
-    return this._super();
-  },
+  }.on("init"),
   willDestroy: function() {
     this.get("orientationServices").removeCallback("day");
     return this._super();
