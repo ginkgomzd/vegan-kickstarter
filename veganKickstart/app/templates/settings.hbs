@@ -28,6 +28,7 @@
       {{#each allDays as |day|}}
         <option value="{{day}}" selected={{eq today day}}>{{ts "day" "Día"}} {{day}}</option>
       {{/each}}
+      <option value="22" selected={{eq today 22}}>{{ts "day-22-shortname" "Finished"}}</option>
     </select>
     <div class="clear"></div>
   </div>
