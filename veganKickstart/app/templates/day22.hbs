@@ -1,0 +1,36 @@
+<div class="day">
+  {{image-widget}}
+  <div class="darkGrayBar"><span class="title">{{ts "day-22-tagline" "You're Done"}}</span></div>
+
+
+  <div class="media greenBlock" {{action "startOver" recipe.id}}>
+    <div class="media-left recipe-thumbnail">
+      {{image-widget decoration=false}}
+    </div>
+    <div>
+      <h5 class="title">{{ts "start-over" "Start Over"}}</h5>
+      <div>{{ts "start-over-description" ""}}</div>
+    </div>
+  </div>
+
+  <div class="media greenBlock chevronRight" {{action "myFavorites" recipe.id}}>
+    <div class="media-left recipe-thumbnail">
+      {{image-widget decoration=false}}
+    </div>
+    <div>
+      <h5 class="title">{{ts "my-favorites" "My Favorites"}}</h5>
+      <div>{{ts "my-favorites-description" " "}}</div>
+    </div>
+  </div>
+
+  <div class="media greenBlock chevronRight" {{action "digDeeper" recipe.id}}>
+    <div class="media-left recipe-thumbnail">
+      {{image-widget decoration=false}}
+    </div>
+    <div>
+      <h5 class="title">{{ts "dig-deeper" "Dig Deeper"}}</h5>
+      <div>{{ts "dig-deeper-description" " "}}</div>
+    </div>
+  </div>
+
+</div>
