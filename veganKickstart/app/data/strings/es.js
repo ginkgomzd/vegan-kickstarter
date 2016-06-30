@@ -14,7 +14,7 @@ var strings = {
   "logout-facebook":"Salir de Facebook ",
   "login":"Iniciar sesión",
   "login-facebook":"Iniciar sesión con Facebook ",
-  "facebook-login-error":"Hubo un erro al conectarse a Facebook",
+  "facebook-login-error":"Hubo un error al conectarse a Facebook",
   "share":"Compartir ",
   "share-facebook":"Compartir en Facebook",
   "logged-in-as":"Usted está conectado como",
@@ -46,15 +46,14 @@ var strings = {
   "back":"Retroceder",
   "today":"Hoy",
   "push-title": "¡Atención!",
-  "checking-updates": "Comprobar Actualizaciones",
-  //Strings for Frank to Translate
-  "day-22-shortname": "Finished", //Used in the day drop-down on the settings screen to represent day 22
-  "day-22-tagline": "You've Completed the 21-day Challenge!",
-  "start-over": "Start Over",
-  "start-over-description": " ",
-  "my-favorites": "My Favorites",
-  "my-favorites-description": " ",
-  "dig-deeper": "Dig Deeper",
-  "dig-deeper-description": " "
+  "checking-updates": "Comprobando Actualizaciones",
+  "day-22-shortname": "Pasado día 21", // Used in the day drop-down on the settings screen to represent day 22
+  "day-22-tagline": "¡Ha cumplido el programa \"Vegetariano en 21 días\"!",
+  "start-over": "Empezar de nuevo",
+  "start-over-description": "¡Veintiuno días mas!",
+  "my-favorites": "Mis favoritos",
+  "my-favorites-description": "Las recetas que le encantan, a sus dedos",
+  "dig-deeper": "Encuentre mas",
+  "dig-deeper-description": "Busque todas las recetas que aparecen en el programa de 21 días... y mas todavía"
 };
 export default strings;
