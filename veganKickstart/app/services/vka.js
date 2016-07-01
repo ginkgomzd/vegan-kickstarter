@@ -9,7 +9,7 @@ var vkaServices = Ember.Service.extend({
     var day;
 
     if (startedDateString) {
-      var started = new Date(startedDateString);
+      var started = new Date(startedDateString.replace(/-/g, "/"));
       day = this.get("dateHelper").daysBetween(started) + 1;
     } else {
       this.get("settings").save("startedKickstarter", this.get("dateHelper").formatDate());
