@@ -18,6 +18,10 @@ export default Ember.Controller.extend({
     return this.get("vka").getToday();
   }.property("settings.startedKickstarter"),
 
+  updateToday: function() {
+    this.set("today", this.get("vka").getToday());
+  },
+
   //This observer runs to update the day in the settings.
   updateDay: function() {
     var started = this.get("dateHelper").daysAgo(parseInt(this.get("today")) - 1);
