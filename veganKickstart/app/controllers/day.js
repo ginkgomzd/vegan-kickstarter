@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend(Ember.Evented, {
+  settings: Ember.inject.service('settings'),
   orientationServices: Ember.inject.service('orientation'),
   vka: Ember.inject.service('vka'),
   showBackButton: 'never',
@@ -45,6 +46,12 @@ export default Ember.Controller.extend(Ember.Evented, {
       this.set("today", today);
     }
   },
+  showDay22: function() {
+    return (this.get("vka").getToday() > 21);
+  }.property(),
+  updateShowDay22: function() {
+    this.set("showDay22", (this.get("vka").getToday() > 21));
+  },
   actions: {
     slickInit: function(obj) {
       this.send("resize");
@@ -72,6 +79,17 @@ export default Ember.Controller.extend(Ember.Evented, {
     resize: function() {
       var top = Ember.$(".main-nav").outerHeight();
       Ember.$("#day-view").height(window.innerHeight - top);
+    },
+    startOver: function() {
+      this.get("vka").startOver();
+      this.set("currentDay", 1);
+      this.updateShowDay22();
+    },
+    myFavorites: function() {
+      this.transitionToRoute("search", {"queryParams": {"query": "favorites"}});
+    },
+    digDeeper: function() {
+      this.transitionToRoute("search", {"queryParams": {"query": ""}});
     }
   }
 });

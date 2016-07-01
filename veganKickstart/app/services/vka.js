@@ -16,11 +16,17 @@ var vkaServices = Ember.Service.extend({
       day = 1;
     }
 
-    if ((day > 21) || day === "Invalid Date" || isNaN(day)) {
+    if (day === "Invalid Date" || isNaN(day)) {
       return 1;
+
+    } else if (day > 21) {
+      return 22;
     } else {
       return day;
     }
+  },
+  startOver: function() {
+    this.get("settings").save("startedKickstarter", this.get("dateHelper").formatDate());
   }
 });
 

@@ -24,11 +24,12 @@
 <div class="settingsForm">
   <div class="greenBlock">
     <span class="title">{{ts "today-is" "Hoy es"}}:</span>
-    <select class="right" onchange={{action (mut today) value="target.value"}}>
+    {{#x-select value=today as |xs|}}
       {{#each allDays as |day|}}
-        <option value="{{day}}" selected={{eq today day}}>{{ts "day" "Día"}} {{day}}</option>
+        {{#xs.option value=day}}{{ts "day" "Día"}} {{day}}{{/xs.option}}
       {{/each}}
-    </select>
+      {{#xs.option value=22}}{{ts "day-22-shortname" "Finished"}}{{/xs.option}}
+    {{/x-select}}
     <div class="clear"></div>
   </div>
 </div>
