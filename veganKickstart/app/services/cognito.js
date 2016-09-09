@@ -204,15 +204,49 @@ var cognitoService = Ember.Service.extend({
               that.subscribeToTopic(EmberENV.AWS.DefaultTopics[i]);
             }
           }
+          var platform = cordova.platformId;
+          if (platform) {
+            that.subscribeToTopic("VKA_ES_" + platform.toUpperCase());
+          }
         } else {
           //Error
           console.log("Error", err);
         }
       });
+    } else {
+      this.verifySubscriptions();
+    }
+  },
+  /**
+   * This function Takes the saved list of topics we that have been subscribed to
+   * and if one is missing from the default list if Subscribes to it.
+   * This allows us to add default topics in new builds and have existing
+   * installations subscribe to them
+   */
+  verifySubscriptions: function() {
+    var SubscribedTopics = this.get("settings").load("SubscribedTopics") || [];
+
+    //Verify Default Topics
+    for(var i in EmberENV.AWS.DefaultTopics) {
+      if (EmberENV.AWS.DefaultTopics.hasOwnProperty(i)) {
+        if(SubscribedTopics.indexOf(EmberENV.AWS.DefaultTopics[i]) === -1) {
+          this.subscribeToTopic(EmberENV.AWS.DefaultTopics[i]);
+        }
+      }
+    }
+
+    //Verify Platform Topic
+    var platform = cordova.platformId;
+    if (platform) {
+      var platformTopic = "VKA_ES_" + platform.toUpperCase();
+      if(SubscribedTopics.indexOf(platformTopic) === -1) {
+        this.subscribeToTopic(platformTopic);
+      }
     }
   },
   subscribeToTopic: function(topic) {
     var endpointARN = this.get("settings").load("EndpointArn");
+    var SubscribedTopics = this.get("settings").load("SubscribedTopics") || [];
     if(endpointARN) {
       var sns = new AWS.SNS();
       var params = {
@@ -220,8 +254,11 @@ var cognitoService = Ember.Service.extend({
         Protocol: "application",
         Endpoint: endpointARN
       };
+      var that = this;
       sns.subscribe(params, function(err, data) {
         if(data) {
+          SubscribedTopics.push(topic);
+          that.get("settings").save("SubscribedTopics", SubscribedTopics, false);
           console.log(data);
         } else {
           console.log(err);
