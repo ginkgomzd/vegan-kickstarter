@@ -32,7 +32,7 @@ module.exports = function(environment) {
           amazon: "",
           base: "arn:aws:sns:us-east-1:158654390092"
         },
-        DefaultTopics: []
+        DefaultTopics: ["VKA_ES_ALL_DEVICES"]
       },
       GCMSenderID: "155595325949"
     },
