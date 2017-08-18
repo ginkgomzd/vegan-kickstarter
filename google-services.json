@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "155595325949",
+    "firebase_url": "https://vegetarianoen21dias.firebaseio.com",
+    "project_id": "vegetarianoen21dias",
+    "storage_bucket": "vegetarianoen21dias.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155595325949:android:9826d62dc5a8076f",
+        "android_client_info": {
+          "package_name": "org.pcrm.VeganKickstartES"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155595325949-aa75o9ngomph6kuco21ha16b9gj4n3mg.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "155595325949-6ag71hc8f87n0955rpefnhh9lsmu0183.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6uiBNiKZENA0iPEjL_C9-ZNmU5sZybew"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
