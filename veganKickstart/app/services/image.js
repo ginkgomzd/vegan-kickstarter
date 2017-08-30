@@ -1,8 +1,10 @@
 import Ember from 'ember';
 
 var imageService = Ember.Service.extend({
+  debug: Ember.inject.service('debug'),
   cacheAndDisplay: function(image) {
     var that = this;
+    var debug = this.get('debug');
     return new Ember.RSVP.Promise(function(resolve, reject) {
       var url = image.get("remotePath");
 
@@ -26,7 +28,7 @@ var imageService = Ember.Service.extend({
                   resolve(imgUrl);
                 },
                 function(error) {
-                  //console.log("Error: ", error);
+                  debug.log("Error: ", error);
                   resolve(url);
                 }
               );
