@@ -20,6 +20,7 @@
     <hook src="scripts/build_ember_app.sh" type="before_prepare" />
     <platform name="android">
         <content src="index.html" />
+        <resource-file src="GTM-5MF2C8B.json" target="assets/containers/GTM-5MF2C8B.json" />
         <preference name="android-minSdkVersion" value="15" />
         <preference name="android-targetSdkVersion" value="22" />
         <allow-intent href="market:*" />
