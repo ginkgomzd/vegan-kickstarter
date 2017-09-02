@@ -51,7 +51,11 @@ var imageService = Ember.Service.extend({
   fetchImage: function(url, localPath) {
     return new Ember.RSVP.Promise(function(resolve, reject) {
       var fileTransfer = new FileTransfer();
-      var uri = encodeURI(url);
+      var uri = decodeURIComponent(url);
+      if (uri === url) {
+        // not already encoded, so:
+        uri = encodeURI(url);
+      }
       fileTransfer.download(
         uri,
         localPath,
