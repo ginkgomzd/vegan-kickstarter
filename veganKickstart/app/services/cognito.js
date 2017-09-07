@@ -4,6 +4,7 @@ var cognitoService = Ember.Service.extend({
   facebook: Ember.inject.service('facebook'),
   settings: Ember.inject.service('settings'),
   loggedIn: function() {return false;}.property(),
+  debug: Ember.inject.service('debug'),
   startSession: function() {
     AWS.config.region = EmberENV.AWS.CognitoRegion;
     var params = {
@@ -47,6 +48,7 @@ var cognitoService = Ember.Service.extend({
   },
   facebookLogin: function() {
     var that = this;
+    var debug = this.get('debug');
     return new Ember.RSVP.Promise(function(resolve, reject) {
       that.get("facebook").login().then(
         function(userData) {
@@ -55,7 +57,7 @@ var cognitoService = Ember.Service.extend({
           resolve();
         },
         function(error) {
-          console.log("Facebook Login Error: ", error);
+          debug.log("Facebook Login Error: ", error);
           reject();
         });
     });
@@ -182,6 +184,7 @@ var cognitoService = Ember.Service.extend({
   /*************[ Push related functions ]****************/
 
   registerDevice: function(token) {
+    var debug = this.get('debug');
     //we only need ot do this once per device/application pairing.
     if (!this.get("settings").load("EndpointArn")) {
       var that = this;
@@ -210,7 +213,7 @@ var cognitoService = Ember.Service.extend({
           }
         } else {
           //Error
-          console.log("Error", err);
+          debug.log("Error", err);
         }
       });
     } else {
@@ -245,6 +248,7 @@ var cognitoService = Ember.Service.extend({
     }
   },
   subscribeToTopic: function(topic) {
+    var debug = this.get('debug');
     var endpointARN = this.get("settings").load("EndpointArn");
     var SubscribedTopics = this.get("settings").load("SubscribedTopics") || [];
     if(endpointARN) {
@@ -259,9 +263,9 @@ var cognitoService = Ember.Service.extend({
         if(data) {
           SubscribedTopics.push(topic);
           that.get("settings").save("SubscribedTopics", SubscribedTopics, false);
-          console.log(data);
+          debug.log(data);
         } else {
-          console.log(err);
+          debug.log(err);
         }
       });
     }

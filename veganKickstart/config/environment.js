@@ -6,6 +6,8 @@ module.exports = function(environment) {
     environment: environment,
     locationType: 'hash',
     EmberENV: {
+      environment: environment,
+      iOSMock: false,
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
@@ -65,9 +67,6 @@ module.exports = function(environment) {
     }
   };
 
-
-
-
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -75,6 +74,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     //ENV.EmberENV.cmsUrl = "http://sandbox.vegetarianoen21diasapp.com";
+    ENV.EmberENV.AWS.DefaultTopics.push('BetaFirebase');
     ENV.EmberENV.AWS.DefaultTopics.push("BetaTesters");
   }
 

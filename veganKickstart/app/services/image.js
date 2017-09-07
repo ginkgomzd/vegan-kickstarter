@@ -1,8 +1,10 @@
 import Ember from 'ember';
 
 var imageService = Ember.Service.extend({
+  debug: Ember.inject.service('debug'),
   cacheAndDisplay: function(image) {
     var that = this;
+    var debug = this.get('debug');
     return new Ember.RSVP.Promise(function(resolve, reject) {
       var url = image.get("remotePath");
 
@@ -26,7 +28,7 @@ var imageService = Ember.Service.extend({
                   resolve(imgUrl);
                 },
                 function(error) {
-                  //console.log("Error: ", error);
+                  debug.log("Error: ", error);
                   resolve(url);
                 }
               );
@@ -49,7 +51,11 @@ var imageService = Ember.Service.extend({
   fetchImage: function(url, localPath) {
     return new Ember.RSVP.Promise(function(resolve, reject) {
       var fileTransfer = new FileTransfer();
-      var uri = encodeURI(url);
+      var uri = decodeURIComponent(url);
+      if (uri === url) {
+        // not already encoded, so:
+        uri = encodeURI(url);
+      }
       fileTransfer.download(
         uri,
         localPath,
