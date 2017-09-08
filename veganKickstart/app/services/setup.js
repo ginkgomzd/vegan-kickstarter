@@ -13,8 +13,17 @@ var setupService = Ember.Service.extend({
   cmsUtils: Ember.inject.service('cmsUtils'),
   facebook: Ember.inject.service('facebook'),
   cognito: Ember.inject.service('cognito'),
+  debug: Ember.inject.service('debug'),
+  /**
+   * Calls updateAll if enough time has elapsed.
+   * Always resolves but will pass true or false if updateAll was not called.
+   * @return {[type]} [description]
+   */
   checkForUpdates: function() {
     var setup = this;
+    var today = setup.get("dateHelper").formatDateTime();
+    var dateHelper = setup.get("dateHelper");
+    var debug = this.get('debug');
     //Calculate the last updated date
     var lastUpdated = this.get("settings").load("lastUpdatedDate");
     if (!lastUpdated) {
@@ -22,13 +31,18 @@ var setupService = Ember.Service.extend({
     }
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      setup.get("cmsUtils").updateAll(lastUpdated).then(function(updated) {
-        var today = setup.get("dateHelper").formatDateTime();
-        setup.get("settings").save("lastUpdatedDate", today, false);
-        resolve(true);
-      }, function() {
+      if (dateHelper.daysBetween(new Date(lastUpdated), new Date(today)) > 1 ) {
+        setup.get("cmsUtils").updateAll(lastUpdated).then(function(updated) {
+          debug.log('UpdateAll complete:'+today);
+          setup.get("settings").save("lastUpdatedDate", today, false);
+          resolve(true);
+        }, function() {
+          resolve(false);
+        });
+      } else {
+        debug.log("lastUpdated check:: not enough time elapsed")
         resolve(false);
-      });
+      }
     });
 
   },
