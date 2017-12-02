@@ -2,6 +2,9 @@ www/*
 !.gitkeep
 plugins/
 libraries/
+node_modules/
 platforms/
 /nbproject/private/
 .idea/
+package-lock.json
+package.json
