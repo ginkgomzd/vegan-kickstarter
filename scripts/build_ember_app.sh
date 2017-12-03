@@ -6,5 +6,5 @@ if [[ $CORDOVA_CMDLINE =~ release ]]; then
 	(cd vegan* && ember build --environment=production)
 else
 	echo "Creating debug build of ember app"
-	(cd vegan* && ember build)
+	(cd vegan* && ember build --environment=development)
 fi
