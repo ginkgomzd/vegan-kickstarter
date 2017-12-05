@@ -1,7 +1,7 @@
 // jshint ignore: start
 var expectedEntityCounts = {
   day: 21,
-  recipe: 75,
-  image: 164
+  recipe: 81,
+  image: 459
 };
 export default expectedEntityCounts;
