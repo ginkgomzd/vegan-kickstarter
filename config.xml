@@ -64,6 +64,7 @@
         <icon height="87" src="res/icons/icon-small@3x.png" width="87" />
         <icon height="50" src="res/icons/icon-50.png" width="50" />
         <icon height="100" src="res/icons/icon-50@2x.png" width="100" />
+        <icon height="1024" src="res/icons/icon-1024.png" width="1024" />
         <splash height="480" src="res/splash/iphone/Default.png" width="320" />
         <splash height="960" src="res/splash/iphone/Default@2x.png" width="640" />
         <splash height="1136" src="res/splash/iphone/Default-568h@2x.png" width="640" />
