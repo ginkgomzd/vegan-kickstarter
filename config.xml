@@ -74,7 +74,7 @@
         <splash height="2048" src="res/splash/ipad/Default-Portrait@2x.png" width="1536" />
     </platform>
     <engine name="android" spec="^6.2.3" />
-    <engine name="ios" spec="^4.4.0" />
+    <engine name="ios" spec="^4.5.4" />
     <plugin name="cordova-plugin-facebook4" spec="git+https://github.com/jeduan/cordova-plugin-facebook4.git">
         <variable name="APP_ID" value="1661929367400739" />
         <variable name="APP_NAME" value="21DayVeganKickstart" />
