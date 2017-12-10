@@ -17,7 +17,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="StatusBarBackgroundColor" value="#B2D235" />
-    <hook src="scripts/build_ember_app.sh" type="before_prepare" />
+    <hook src="scripts/build_ember_app.sh" type="before_build" />
     <platform name="android">
         <content src="index.html" />
         <resource-file src="GTM-5MF2C8B.json" target="assets/containers/GTM-5MF2C8B.json" />
