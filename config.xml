@@ -42,6 +42,7 @@
     </platform>
     <platform name="ios">
         <content src="index.html" />
+        <resource-file src="GTM-TCD57C5.json" target="assets/containers/GTM-TCD57C5.json" />
         <preference name="BackupWebStorage" value="none" />
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="iosPersistentFileLocation" value="Library" />
