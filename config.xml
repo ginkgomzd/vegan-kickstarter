@@ -86,5 +86,5 @@
         <variable name="APP_ID" value="1661929367400739" />
         <variable name="APP_NAME" value="21DayVeganKickstart" />
     </plugin>
-    <plugin name="cordova-plugin-firebase" spec="^0.1.25" />
+    <plugin name="cordova-plugin-firebase" spec="https://github.com/ginkgostreet/cordova-plugin-firebase.git#vka-1.0.2" />
 </widget>
