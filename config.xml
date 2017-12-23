@@ -44,7 +44,7 @@
         <preference name="BackupWebStorage" value="none" />
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="iosPersistentFileLocation" value="Library" />
-        <resource-file src="GTM-TCD57C5.json" target="assets/containers/GTM-TCD57C5.json" />
+        <resource-file src="GTM-TCD57C5.json" target="res/container/GTM-TCD57C5.json" />
         <icon height="180" src="res/icons/icon-60@3x.png" width="180" />
         <icon height="60" src="res/icons/icon-60.png" width="60" />
         <icon height="120" src="res/icons/icon-60@2x.png" width="120" />
