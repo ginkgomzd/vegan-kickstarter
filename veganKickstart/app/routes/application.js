@@ -8,6 +8,7 @@ export default Ember.Route.extend({
   facebook: Ember.inject.service('facebook'),
   cognito: Ember.inject.service('cognito'),
   ts: Ember.inject.service('ts'),
+  analytics: Ember.inject.service('analytics'),
   isSetUp: function() {return false;}.property(),
   model: function () {
     this.get("ts").setup();

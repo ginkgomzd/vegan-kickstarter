@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   firebase: Ember.inject.service('firebase'),
   debug: Ember.inject.service('debug'),
   cognito: Ember.inject.service('cognito'),
+  analytics: Ember.inject.service('analytics'),
   init: function() {
     var app = this;
     if (EmberENV.iOSMock) {
