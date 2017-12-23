@@ -49,9 +49,9 @@ module.exports = function(environment) {
       'default-src': ["'self'", "https://vegetarianoen21diasapp.com", "http://sandbox.vegetarianoen21diasapp.com"],
 
       // Allow scripts from:
-      'script-src': ["'self'", "https://connect.facebook.net"],
+      'script-src': ["'self'", "https://connect.facebook.net", "https://www.googletagmanager.com", "https://www.google-analytics.com"],
 
-      'font-src': ["'self'", "http://fonts.gstatic.com"],
+      'font-src': ["'self'", "http://fonts.gstatic.com", "themes.googleusercontent.com"],
 
       // Allow data (ajax/websocket) from:
       'connect-src': ["'self'", "https://vegetarianoen21diasapp.com", "http://sandbox.vegetarianoen21diasapp.com", "https://*.amazonaws.com/"],
