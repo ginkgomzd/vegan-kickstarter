@@ -76,6 +76,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="StatusBarBackgroundColor" value="#B2D235" />
     <engine name="android" spec="^6.3.0" />
+    <engine name="ios" spec="^4.5.4" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
@@ -87,5 +88,5 @@
         <variable name="APP_ID" value="1661929367400739" />
         <variable name="APP_NAME" value="21DayVeganKickstart" />
     </plugin>
-    <plugin name="cordova-plugin-firebase" spec="https://github.com/ginkgostreet/cordova-plugin-firebase.git#vka-1.0.2" />
+    <plugin name="cordova-plugin-firebase" spec="git+https://github.com/ginkgostreet/cordova-plugin-firebase.git#vka-1.0.2" />
 </widget>
