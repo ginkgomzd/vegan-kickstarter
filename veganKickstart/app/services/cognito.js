@@ -263,9 +263,9 @@ var cognitoService = Ember.Service.extend({
         if(data) {
           SubscribedTopics.push(topic);
           that.get("settings").save("SubscribedTopics", SubscribedTopics, false);
-          debug.log(data);
+          debug.log('cognito Subscribe data::', data);
         } else {
-          debug.log(err);
+          debug.log('cognito Subscribe err::', err);
         }
       });
     }

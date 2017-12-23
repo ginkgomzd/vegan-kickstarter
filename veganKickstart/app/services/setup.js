@@ -40,7 +40,7 @@ var setupService = Ember.Service.extend({
           resolve(false);
         });
       } else {
-        debug.log("lastUpdated check:: not enough time elapsed")
+        debug.log("lastUpdated check:: not enough time elapsed");
         resolve(false);
       }
     });

@@ -3,7 +3,9 @@ import Ember from 'ember';
 var debugService = Ember.Service.extend({
   log: function(msg) {
     if ((EmberENV.environment === 'development')) {
-      console.log('[DEBUG-GSL]'+msg);
+      var dateNow = new Date();
+      var timestamp = dateNow.getHours()+':'+dateNow.getMinutes()+':'+dateNow.getSeconds()+':'+dateNow.getMilliseconds();
+      console.log('DEBUG-GSL:', timestamp, msg);
     }
   }
 });
