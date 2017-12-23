@@ -6,5 +6,11 @@ export default Ember.Route.extend({
     if(this.controller) {
       this.controller.updateToday();
     }
+  },
+  actions: {
+    didTransition: function() {
+      this.get('analytics').logPageView(this);
+      return true;
+    }
   }
 });

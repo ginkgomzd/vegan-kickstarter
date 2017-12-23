@@ -41,7 +41,7 @@ export default Ember.Route.extend({
     willTransition: function() {
       this.get("status").loading();
     },
-    didTransition: function(transition) {
+    didTransition: function() {
       Ember.run.later(this, function() {
         var mode =  this.controllerFor(this.controller.currentRouteName).get("showBackButton") || 'always';
 
@@ -57,6 +57,9 @@ export default Ember.Route.extend({
         this.get("settings").setSessionVar("showBackButton", showBB);
         this.get("status").complete();
       }, 5);
+
+      this.get('analytics').logPageView(this);
+      return true;
     },
     openModal: function(msg, title, params) {
       var modal = this.controllerFor("application").get('comp-modal-main');

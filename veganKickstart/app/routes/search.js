@@ -9,5 +9,11 @@ export default Ember.Route.extend({
   },
   model: function (params) {
     return this.get("store").findAll("recipe");
+  },
+  actions: {
+    didTransition: function() {
+      this.get('analytics').logPageView(this);
+      return true;
+    }
   }
 });

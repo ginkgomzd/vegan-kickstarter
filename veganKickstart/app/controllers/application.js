@@ -30,7 +30,14 @@ export default Ember.Controller.extend({
        var title = notification.title || ts("push-title");
        app.send("openModal", msg, title, notification.additionalData);
      }
-   });
+    });
+
+    Ember.$('body').click(function(obj){
+      var svcAnalytics = app.get('analytics');
+      svcAnalytics.logClick(obj);
+      return true;
+    });
+
   },
   actions: {
     executeBackAction: function() {

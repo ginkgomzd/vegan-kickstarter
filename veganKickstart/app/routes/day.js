@@ -16,5 +16,11 @@ export default Ember.Route.extend({
       "days": this.get("store").findAll("day"),
       "today": this.get("vka").getToday()
     });
+  },
+  actions: {
+    didTransition: function() {
+      this.get('analytics').logPageView(this);
+      return true;
+    }
   }
 });

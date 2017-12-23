@@ -6,5 +6,11 @@ export default Ember.Route.extend({
   beforeModel: function (params) {
     var today = this.get("vka").getToday();
     this.transitionTo("day", {"queryParams": {"currentDay": today}});
+  },
+  actions: {
+    didTransition: function() {
+      this.get('analytics').logPageView(this);
+      return true;
+    },
   }
 });
