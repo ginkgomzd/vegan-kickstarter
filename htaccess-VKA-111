@@ -1,0 +1,531 @@
+SetEnv PHPRC /home/vegeta85/public_html/php.ini
+AddHandler application/x-httpd-php55 .php .php5 .php4 .php3
+
+#
+# Apache/PHP/Drupal settings:
+#
+
+# Protect files and directories from prying eyes.
+<FilesMatch "\.(engine|inc|info|install|make|module|profile|test|po|sh|.*sql|theme|tpl(\.php)?|xtmpl)(~|\.sw[op]|\.bak|\.orig|\.save)?$|^(\..*|Entries.*|Repository|Root|Tag|Template|composer\.(json|lock))$|^#.*#$|\.php(~|\.sw[op]|\.bak|\.orig\.save)$">
+  Order allow,deny
+</FilesMatch>
+
+# Don't show directory listings for URLs which map to a directory.
+Options -Indexes
+
+# Follow symbolic links in this directory.
+Options +FollowSymLinks
+
+# Make Drupal handle any 404 errors.
+ErrorDocument 404 /index.php
+
+# Set the default handler.
+DirectoryIndex index.php index.html index.htm
+
+# Override PHP settings that cannot be changed at runtime. See
+# sites/default/default.settings.php and drupal_environment_initialize() in
+# includes/bootstrap.inc for settings that can be changed at runtime.
+
+# PHP 5, Apache 1 and 2.
+<IfModule mod_php5.c>
+  php_flag magic_quotes_gpc                 off
+  php_flag magic_quotes_sybase              off
+  php_flag register_globals                 off
+  php_flag session.auto_start               off
+  php_value mbstring.http_input             pass
+  php_value mbstring.http_output            pass
+  php_flag mbstring.encoding_translation    off
+</IfModule>
+
+# Requires mod_expires to be enabled.
+<IfModule mod_expires.c>
+  # Enable expirations.
+  ExpiresActive On
+
+  # Cache all files for 2 weeks after access (A).
+  ExpiresDefault A1209600
+
+  <FilesMatch \.php$>
+    # Do not allow PHP scripts to be cached unless they explicitly send cache
+    # headers themselves. Otherwise all scripts would have to overwrite the
+    # headers set by mod_expires if they want another caching behavior. This may
+    # fail if an error occurs early in the bootstrap process, and it may cause
+    # problems if a non-Drupal PHP file is installed in a subdirectory.
+    ExpiresActive Off
+  </FilesMatch>
+</IfModule>
+
+# Various rewrite rules.
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  # Thwart aggressive/malicious bots. These bots chew up bandwidth and count
+  # against SiteGround's monthly script execution limit. Blocking them at the
+  # server rather than the application level (e.g., via a CMS plugin) prevents
+  # the bot from reaching the site in the first place. The following is adapted
+  # from https://github.com/bluedragonz/bad-bot-blocker/blob/master/.htaccess
+  # and is forked here: https://github.com/ginkgostreet/bad-bot-blocker/
+  # 
+  # Updated 6/23/2017
+ 
+  SetEnvIfNoCase User-Agent "Aboundex" bad_bot
+  SetEnvIfNoCase User-Agent "80legs" bad_bot
+  SetEnvIfNoCase User-Agent "360Spider" bad_bot
+  SetEnvIfNoCase User-Agent "^Java" bad_bot
+  SetEnvIfNoCase User-Agent "^Cogentbot" bad_bot
+  SetEnvIfNoCase User-Agent "^Alexibot" bad_bot
+  SetEnvIfNoCase User-Agent "^asterias" bad_bot
+  SetEnvIfNoCase User-Agent "^attach" bad_bot
+  SetEnvIfNoCase User-Agent "^BackDoorBot" bad_bot
+  SetEnvIfNoCase User-Agent "^BackWeb" bad_bot
+  SetEnvIfNoCase User-Agent "Bandit" bad_bot
+  SetEnvIfNoCase User-Agent "^BatchFTP" bad_bot
+  SetEnvIfNoCase User-Agent "^Bigfoot" bad_bot
+  SetEnvIfNoCase User-Agent "^Black.Hole" bad_bot
+  SetEnvIfNoCase User-Agent "^BlackWidow" bad_bot
+  SetEnvIfNoCase User-Agent "^BlowFish" bad_bot
+  SetEnvIfNoCase User-Agent "^BotALot" bad_bot
+  SetEnvIfNoCase User-Agent "Buddy" bad_bot
+  SetEnvIfNoCase User-Agent "^BuiltBotTough" bad_bot
+  SetEnvIfNoCase User-Agent "^Bullseye" bad_bot
+  SetEnvIfNoCase User-Agent "^BunnySlippers" bad_bot
+  SetEnvIfNoCase User-Agent "^Cegbfeieh" bad_bot
+  SetEnvIfNoCase User-Agent "^CheeseBot" bad_bot
+  SetEnvIfNoCase User-Agent "^CherryPicker" bad_bot
+  SetEnvIfNoCase User-Agent "^ChinaClaw" bad_bot
+  SetEnvIfNoCase User-Agent "Collector" bad_bot
+  SetEnvIfNoCase User-Agent "Copier" bad_bot
+  SetEnvIfNoCase User-Agent "^CopyRightCheck" bad_bot
+  SetEnvIfNoCase User-Agent "^cosmos" bad_bot
+  SetEnvIfNoCase User-Agent "^Crescent" bad_bot
+  SetEnvIfNoCase User-Agent "^Custo" bad_bot
+  SetEnvIfNoCase User-Agent "^AIBOT" bad_bot
+  SetEnvIfNoCase User-Agent "^DISCo" bad_bot
+  SetEnvIfNoCase User-Agent "^DIIbot" bad_bot
+  SetEnvIfNoCase User-Agent "^DittoSpyder" bad_bot
+  SetEnvIfNoCase User-Agent "^Download\ Demon" bad_bot
+  SetEnvIfNoCase User-Agent "^Download\ Devil" bad_bot
+  SetEnvIfNoCase User-Agent "^Download\ Wonder" bad_bot
+  SetEnvIfNoCase User-Agent "^dragonfly" bad_bot
+  SetEnvIfNoCase User-Agent "^Drip" bad_bot
+  SetEnvIfNoCase User-Agent "^eCatch" bad_bot
+  SetEnvIfNoCase User-Agent "^EasyDL" bad_bot
+  SetEnvIfNoCase User-Agent "^ebingbong" bad_bot
+  SetEnvIfNoCase User-Agent "^EirGrabber" bad_bot
+  SetEnvIfNoCase User-Agent "^EmailCollector" bad_bot
+  SetEnvIfNoCase User-Agent "^EmailSiphon" bad_bot
+  SetEnvIfNoCase User-Agent "^EmailWolf" bad_bot
+  SetEnvIfNoCase User-Agent "^EroCrawler" bad_bot
+  SetEnvIfNoCase User-Agent "^Exabot" bad_bot
+  SetEnvIfNoCase User-Agent "^Express\ WebPictures" bad_bot
+  SetEnvIfNoCase User-Agent "Extractor" bad_bot
+  SetEnvIfNoCase User-Agent "^EyeNetIE" bad_bot
+  SetEnvIfNoCase User-Agent "^Foobot" bad_bot
+  SetEnvIfNoCase User-Agent "^flunky" bad_bot
+  SetEnvIfNoCase User-Agent "^FrontPage" bad_bot
+  SetEnvIfNoCase User-Agent "^Go-Ahead-Got-It" bad_bot
+  SetEnvIfNoCase User-Agent "^gotit" bad_bot
+  SetEnvIfNoCase User-Agent "^GrabNet" bad_bot
+  SetEnvIfNoCase User-Agent "^Grafula" bad_bot
+  SetEnvIfNoCase User-Agent "^Harvest" bad_bot
+  SetEnvIfNoCase User-Agent "^hloader" bad_bot
+  SetEnvIfNoCase User-Agent "^HMView" bad_bot
+  SetEnvIfNoCase User-Agent "^HTTrack" bad_bot
+  SetEnvIfNoCase User-Agent "^humanlinks" bad_bot
+  SetEnvIfNoCase User-Agent "^IlseBot" bad_bot
+  SetEnvIfNoCase User-Agent "^Image\ Stripper" bad_bot
+  SetEnvIfNoCase User-Agent "^Image\ Sucker" bad_bot
+  SetEnvIfNoCase User-Agent "Indy\ Library" bad_bot
+  SetEnvIfNoCase User-Agent "^InfoNaviRobot" bad_bot
+  SetEnvIfNoCase User-Agent "^InfoTekies" bad_bot
+  SetEnvIfNoCase User-Agent "^Intelliseek" bad_bot
+  SetEnvIfNoCase User-Agent "^InterGET" bad_bot
+  SetEnvIfNoCase User-Agent "^Internet\ Ninja" bad_bot
+  SetEnvIfNoCase User-Agent "^Iria" bad_bot
+  SetEnvIfNoCase User-Agent "^Jakarta" bad_bot
+  SetEnvIfNoCase User-Agent "^JennyBot" bad_bot
+  SetEnvIfNoCase User-Agent "^JetCar" bad_bot
+  SetEnvIfNoCase User-Agent "^JOC" bad_bot
+  SetEnvIfNoCase User-Agent "^JustView" bad_bot
+  SetEnvIfNoCase User-Agent "^Jyxobot" bad_bot
+  SetEnvIfNoCase User-Agent "^Kenjin.Spider" bad_bot
+  SetEnvIfNoCase User-Agent "^Keyword.Density" bad_bot
+  SetEnvIfNoCase User-Agent "^larbin" bad_bot
+  SetEnvIfNoCase User-Agent "^LexiBot" bad_bot
+  SetEnvIfNoCase User-Agent "^lftp" bad_bot
+  SetEnvIfNoCase User-Agent "^libWeb/clsHTTP" bad_bot
+  SetEnvIfNoCase User-Agent "^likse" bad_bot
+  SetEnvIfNoCase User-Agent "^LinkextractorPro" bad_bot
+  SetEnvIfNoCase User-Agent "^LinkScan/8.1a.Unix" bad_bot
+  SetEnvIfNoCase User-Agent "^LNSpiderguy" bad_bot
+  SetEnvIfNoCase User-Agent "^LinkWalker" bad_bot
+  SetEnvIfNoCase User-Agent "^lwp-trivial" bad_bot
+  SetEnvIfNoCase User-Agent "^LWP::Simple" bad_bot
+  SetEnvIfNoCase User-Agent "^Magnet" bad_bot
+  SetEnvIfNoCase User-Agent "^Mag-Net" bad_bot
+  SetEnvIfNoCase User-Agent "^MarkWatch" bad_bot
+  SetEnvIfNoCase User-Agent "^Mass\ Downloader" bad_bot
+  SetEnvIfNoCase User-Agent "^Mata.Hari" bad_bot
+  SetEnvIfNoCase User-Agent "^Memo" bad_bot
+  SetEnvIfNoCase User-Agent "^Microsoft.URL" bad_bot
+  SetEnvIfNoCase User-Agent "^Microsoft\ URL\ Control" bad_bot
+  SetEnvIfNoCase User-Agent "^MIDown\ tool" bad_bot
+  SetEnvIfNoCase User-Agent "^MIIxpc" bad_bot
+  SetEnvIfNoCase User-Agent "^Mirror" bad_bot
+  SetEnvIfNoCase User-Agent "^Missigua\ Locator" bad_bot
+  SetEnvIfNoCase User-Agent "^Mister\ PiX" bad_bot
+  SetEnvIfNoCase User-Agent "^moget" bad_bot
+  SetEnvIfNoCase User-Agent "^Mozilla/3.Mozilla/2.01" bad_bot
+  SetEnvIfNoCase User-Agent "^Mozilla.*NEWT" bad_bot
+  SetEnvIfNoCase User-Agent "^NAMEPROTECT" bad_bot
+  SetEnvIfNoCase User-Agent "^Navroad" bad_bot
+  SetEnvIfNoCase User-Agent "^NearSite" bad_bot
+  SetEnvIfNoCase User-Agent "^NetAnts" bad_bot
+  SetEnvIfNoCase User-Agent "^Netcraft" bad_bot
+  SetEnvIfNoCase User-Agent "^NetMechanic" bad_bot
+  SetEnvIfNoCase User-Agent "^NetSpider" bad_bot
+  SetEnvIfNoCase User-Agent "^Net\ Vampire" bad_bot
+  SetEnvIfNoCase User-Agent "^NetZIP" bad_bot
+  SetEnvIfNoCase User-Agent "^NextGenSearchBot" bad_bot
+  SetEnvIfNoCase User-Agent "^NG" bad_bot
+  SetEnvIfNoCase User-Agent "^NICErsPRO" bad_bot
+  SetEnvIfNoCase User-Agent "^niki-bot" bad_bot
+  SetEnvIfNoCase User-Agent "^NimbleCrawler" bad_bot
+  SetEnvIfNoCase User-Agent "^Ninja" bad_bot
+  SetEnvIfNoCase User-Agent "^NPbot" bad_bot
+  SetEnvIfNoCase User-Agent "^Octopus" bad_bot
+  SetEnvIfNoCase User-Agent "^Offline\ Explorer" bad_bot
+  SetEnvIfNoCase User-Agent "^Offline\ Navigator" bad_bot
+  SetEnvIfNoCase User-Agent "^Openfind" bad_bot
+  SetEnvIfNoCase User-Agent "^OutfoxBot" bad_bot
+  SetEnvIfNoCase User-Agent "^PageGrabber" bad_bot
+  SetEnvIfNoCase User-Agent "^Papa\ Foto" bad_bot
+  SetEnvIfNoCase User-Agent "^pavuk" bad_bot
+  SetEnvIfNoCase User-Agent "^pcBrowser" bad_bot
+  SetEnvIfNoCase User-Agent "^PHP\ version\ tracker" bad_bot
+  SetEnvIfNoCase User-Agent "^Pockey" bad_bot
+  SetEnvIfNoCase User-Agent "^ProPowerBot/2.14" bad_bot
+  SetEnvIfNoCase User-Agent "^ProWebWalker" bad_bot
+  SetEnvIfNoCase User-Agent "^psbot" bad_bot
+  SetEnvIfNoCase User-Agent "^Pump" bad_bot
+  SetEnvIfNoCase User-Agent "^QueryN.Metasearch" bad_bot
+  SetEnvIfNoCase User-Agent "^RealDownload" bad_bot
+  SetEnvIfNoCase User-Agent "Reaper" bad_bot
+  SetEnvIfNoCase User-Agent "Recorder" bad_bot
+  SetEnvIfNoCase User-Agent "^ReGet" bad_bot
+  SetEnvIfNoCase User-Agent "^RepoMonkey" bad_bot
+  SetEnvIfNoCase User-Agent "^RMA" bad_bot
+  SetEnvIfNoCase User-Agent "Siphon" bad_bot
+  SetEnvIfNoCase User-Agent "^SiteSnagger" bad_bot
+  SetEnvIfNoCase User-Agent "^SlySearch" bad_bot
+  SetEnvIfNoCase User-Agent "^SmartDownload" bad_bot
+  SetEnvIfNoCase User-Agent "^Snake" bad_bot
+  SetEnvIfNoCase User-Agent "^Snapbot" bad_bot
+  SetEnvIfNoCase User-Agent "^Snoopy" bad_bot
+  SetEnvIfNoCase User-Agent "^sogou" bad_bot
+  SetEnvIfNoCase User-Agent "^SpaceBison" bad_bot
+  SetEnvIfNoCase User-Agent "^SpankBot" bad_bot
+  SetEnvIfNoCase User-Agent "^spanner" bad_bot
+  SetEnvIfNoCase User-Agent "^Sqworm" bad_bot
+  SetEnvIfNoCase User-Agent "Stripper" bad_bot
+  SetEnvIfNoCase User-Agent "Sucker" bad_bot
+  SetEnvIfNoCase User-Agent "^SuperBot" bad_bot
+  SetEnvIfNoCase User-Agent "^SuperHTTP" bad_bot
+  SetEnvIfNoCase User-Agent "^Surfbot" bad_bot
+  SetEnvIfNoCase User-Agent "^suzuran" bad_bot
+  SetEnvIfNoCase User-Agent "^Szukacz/1.4" bad_bot
+  SetEnvIfNoCase User-Agent "^tAkeOut" bad_bot
+  SetEnvIfNoCase User-Agent "^Teleport" bad_bot
+  SetEnvIfNoCase User-Agent "^Telesoft" bad_bot
+  SetEnvIfNoCase User-Agent "^TurnitinBot/1.5" bad_bot
+  SetEnvIfNoCase User-Agent "^The.Intraformant" bad_bot
+  SetEnvIfNoCase User-Agent "^TheNomad" bad_bot
+  SetEnvIfNoCase User-Agent "^TightTwatBot" bad_bot
+  SetEnvIfNoCase User-Agent "^Titan" bad_bot
+  SetEnvIfNoCase User-Agent "^True_Robot" bad_bot
+  SetEnvIfNoCase User-Agent "^turingos" bad_bot
+  SetEnvIfNoCase User-Agent "^TurnitinBot" bad_bot
+  SetEnvIfNoCase User-Agent "^URLy.Warning" bad_bot
+  SetEnvIfNoCase User-Agent "^Vacuum" bad_bot
+  SetEnvIfNoCase User-Agent "^VCI" bad_bot
+  SetEnvIfNoCase User-Agent "^VoidEYE" bad_bot
+  SetEnvIfNoCase User-Agent "^Web\ Image\ Collector" bad_bot
+  SetEnvIfNoCase User-Agent "^Web\ Sucker" bad_bot
+  SetEnvIfNoCase User-Agent "^WebAuto" bad_bot
+  SetEnvIfNoCase User-Agent "^WebBandit" bad_bot
+  SetEnvIfNoCase User-Agent "^Webclipping.com" bad_bot
+  SetEnvIfNoCase User-Agent "^WebCopier" bad_bot
+  SetEnvIfNoCase User-Agent "^WebEMailExtrac.*" bad_bot
+  SetEnvIfNoCase User-Agent "^WebEnhancer" bad_bot
+  SetEnvIfNoCase User-Agent "^WebFetch" bad_bot
+  SetEnvIfNoCase User-Agent "^WebGo\ IS" bad_bot
+  SetEnvIfNoCase User-Agent "^Web.Image.Collector" bad_bot
+  SetEnvIfNoCase User-Agent "^WebLeacher" bad_bot
+  SetEnvIfNoCase User-Agent "^WebmasterWorldForumBot" bad_bot
+  SetEnvIfNoCase User-Agent "^WebReaper" bad_bot
+  SetEnvIfNoCase User-Agent "^WebSauger" bad_bot
+  SetEnvIfNoCase User-Agent "^Website\ eXtractor" bad_bot
+  SetEnvIfNoCase User-Agent "^Website\ Quester" bad_bot
+  SetEnvIfNoCase User-Agent "^Webster" bad_bot
+  SetEnvIfNoCase User-Agent "^WebStripper" bad_bot
+  SetEnvIfNoCase User-Agent "^WebWhacker" bad_bot
+  SetEnvIfNoCase User-Agent "^WebZIP" bad_bot
+  SetEnvIfNoCase User-Agent "Whacker" bad_bot
+  SetEnvIfNoCase User-Agent "^Widow" bad_bot
+  SetEnvIfNoCase User-Agent "^WISENutbot" bad_bot
+  SetEnvIfNoCase User-Agent "^WWWOFFLE" bad_bot
+  SetEnvIfNoCase User-Agent "^WWW-Collector-E" bad_bot
+  SetEnvIfNoCase User-Agent "^Xaldon" bad_bot
+  SetEnvIfNoCase User-Agent "^Xenu" bad_bot
+  SetEnvIfNoCase User-Agent "^Zeus" bad_bot
+  SetEnvIfNoCase User-Agent "ZmEu" bad_bot
+  SetEnvIfNoCase User-Agent "^Zyborg" bad_bot
+ 
+  # Vulnerability Scanners
+  SetEnvIfNoCase User-Agent "Acunetix" bad_bot
+  SetEnvIfNoCase User-Agent "FHscan" bad_bot
+ 
+  # Aggressive Chinese Search Engine
+  SetEnvIfNoCase User-Agent "Baiduspider" bad_bot
+ 
+  # Aggressive Russian Search Engine
+  # SetEnvIfNoCase User-Agent "Yandex" bad_bot
+
+  # Additional blocks by GSL
+  SetEnvIfNoCase User-Agent "AhrefsBot" bad_bot
+  SetEnvIfNoCase User-Agent "BLEX\ Bot" bad_bot
+  SetEnvIfNoCase User-Agent "BLEXBot" bad_bot
+  SetEnvIfNoCase User-Agent "Cliqzbot" bad_bot
+  SetEnvIfNoCase User-Agent "Companybook\ Crawler" bad_bot
+  SetEnvIfNoCase User-Agent "DomainAppender" bad_bot
+  SetEnvIfNoCase User-Agent "Domain\ Re-Animator\ Bot" bad_bot
+  SetEnvIfNoCase User-Agent "DotBot" bad_bot
+  SetEnvIfNoCase User-Agent "Exabot" bad_bot
+  SetEnvIfNoCase User-Agent "istellabot" bad_bot
+  SetEnvIfNoCase User-Agent "looksystems" bad_bot
+  SetEnvIfNoCase User-Agent "ltx71" bad_bot
+  SetEnvIfNoCase User-Agent "MegaIndex\.ru" bad_bot
+  SetEnvIfNoCase User-Agent "Mediatoolkitbot" bad_bot
+  SetEnvIfNoCase User-Agent "MJ12bot" bad_bot
+  SetEnvIfNoCase User-Agent "Pingdom\.com" bad_bot
+  SetEnvIfNoCase User-Agent "Scrapy" bad_bot
+  SetEnvIfNoCase User-Agent "ScoutJet" bad_bot
+  SetEnvIfNoCase User-Agent "SemrushBot" bad_bot
+  SetEnvIfNoCase User-Agent "seoscanners\.net" bad_bot
+  SetEnvIfNoCase User-Agent "Sogou\ web\ spider" bad_bot
+  SetEnvIfNoCase User-Agent "spbot" bad_bot
+  SetEnvIfNoCase User-Agent "weborama" bad_bot
+  SetEnvIfNoCase User-Agent "Yandex.*" bad_bot
+  SetEnvIfNoCase User-Agent "YisouSpider" bad_bot
+  SetEnvIfNoCase User-Agent "ZumBot" bad_bot
+ 
+  # Additional blocks from Siteground
+  SetEnvIfNoCase User-Agent "^Bot\ mailto:craftbot@yahoo.com" bad_bot
+  SetEnvIfNoCase User-Agent "^ExtractorPro" bad_bot
+  SetEnvIfNoCase User-Agent "^FlashGet" bad_bot
+  SetEnvIfNoCase User-Agent "^GetRight" bad_bot
+  SetEnvIfNoCase User-Agent "^GetWeb!" bad_bot
+  SetEnvIfNoCase User-Agent "^Go!Zilla" bad_bot
+  SetEnvIfNoCase User-Agent "^JOC\ Web\ Spider" bad_bot
+  SetEnvIfNoCase User-Agent "^LeechFTP" bad_bot
+  SetEnvIfNoCase User-Agent "^Teleport\ Pro" bad_bot
+  SetEnvIfNoCase User-Agent "^Wget" bad_bot
+  SetEnvIfNoCase User-Agent "^Xaldon\ WebSpider" bad_bot
+
+  #####################################################################################################
+  #
+  # DO NOT ADD - Siteground malware scanner identifies as Trident adding this causes site scans to fail
+  # SetEnvIfNoCase User-Agent "Trident" bad_bot
+  #
+  #####################################################################################################
+
+  <Limit GET POST HEAD>
+	Order Allow,Deny
+	Allow from all
+ 
+	# Cyveillance
+	deny from 38.100.19.8/29
+	deny from 38.100.21.0/24
+	deny from 38.100.41.64/26
+	deny from 38.105.71.0/25
+	deny from 38.105.83.0/27
+	deny from 38.112.21.140/30
+	deny from 38.118.42.32/29
+	deny from 65.213.208.128/27
+	deny from 65.222.176.96/27
+	deny from 65.222.185.72/29
+ 
+	Deny from env=bad_bot
+  </Limit>
+ 
+  ###################
+  # End bot defense #
+  ###################
+
+
+  # Set "protossl" to "s" if we were accessed via https://.  This is used later
+  # if you enable "www." stripping or enforcement, in order to ensure that
+  # you don't bounce between http and https.
+  RewriteRule ^ - [E=protossl]
+  RewriteCond %{HTTPS} on
+  RewriteRule ^ - [E=protossl:s]
+
+  # Make sure Authorization HTTP header is available to PHP
+  # even when running as CGI or FastCGI.
+  RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+  # Block access to "hidden" directories whose names begin with a period. This
+  # includes directories used by version control systems such as Subversion or
+  # Git to store control files. Files whose names begin with a period, as well
+  # as the control files used by CVS, are protected by the FilesMatch directive
+  # above.
+  #
+  # NOTE: This only works when mod_rewrite is loaded. Without mod_rewrite, it is
+  # not possible to block access to entire directories from .htaccess, because
+  # <DirectoryMatch> is not allowed here.
+  #
+  # If you do not have mod_rewrite installed, you should remove these
+  # directories from your webroot or otherwise protect them from being
+  # downloaded.
+  RewriteRule "(^|/)\." - [F]
+
+  # If your site can be accessed both with and without the 'www.' prefix, you
+  # can use one of the following settings to redirect users to your preferred
+  # URL, either WITH or WITHOUT the 'www.' prefix. Choose ONLY one option:
+  #
+  # To redirect all users to access the site WITH the 'www.' prefix,
+  # (http://example.com/... will be redirected to http://www.example.com/...)
+  # uncomment the following:
+  # RewriteCond %{HTTP_HOST} .
+  # RewriteCond %{HTTP_HOST} !^www\. [NC]
+  # RewriteRule ^ http%{ENV:protossl}://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  #
+  # To redirect all users to access the site WITHOUT the 'www.' prefix,
+  # (http://www.example.com/... will be redirected to http://example.com/...)
+  # uncomment the following:
+  # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  # RewriteRule ^ http%{ENV:protossl}://%1%{REQUEST_URI} [L,R=301]
+
+  # Modify the RewriteBase if you are using Drupal in a subdirectory or in a
+  # VirtualDocumentRoot and the rewrite rules are not working properly.
+  # For example if your site is at http://example.com/drupal uncomment and
+  # modify the following line:
+  # RewriteBase /drupal
+  #
+  # If your site is running in a VirtualDocumentRoot at http://example.com/,
+  # uncomment the following line:
+  # RewriteBase /
+
+  # Force all traffic to use HTTPS without 'www.' prefix
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} !^vegetarianoen21diasapp\.com$
+  RewriteRule ^ https://vegetarianoen21diasapp.com%{REQUEST_URI} [L,R=301]
+
+
+  #############################
+  # Begin stopgap for VKA-111 #
+  #############################
+
+  RewriteRule ^ - [E=vka_api_cache:sites/default/files/api-cache]
+
+  # Enable back-door and skip the rewriting
+  # Pass all requests not referring directly to files in the filesystem to
+  # index.php. Clean URLs are handled in drupal_environment_initialize().
+  RewriteCond %{QUERY_STRING} cache=bypass
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !=/favicon.ico
+  RewriteRule ^ index.php [L]
+
+#  RewriteRule ^ - [S=2]
+
+  # if the "last updated" date is the hardcoded Feb date, or...
+#  RewriteCond %{QUERY_STRING} ^updated=2016/0?2 [OR]
+#  RewriteCond %{QUERY_STRING} ^updated=2016/0?2 [OR]
+#  RewriteCond %{QUERY_STRING} ^updated=2016/0?7/1
+  # serve a static file
+#  RewriteRule ^api/(.*) sites/default/files/api-cache/$1-updated-through-20160719.json [L]
+
+  # other content refresh requests are answered with no new content
+#  RewriteRule ^api/.* %{ENV:vka_api_cache}/000-no-updates.json [L]
+
+  ####### CACHE GEN-TWO
+
+
+# You've already been here today
+  RewriteCond %{QUERY_STRING} updated=%{TIME_YEAR}/%{TIME_MON}/%{TIME_DAY}
+  RewriteRule ^api/.* sites/default/files/api-cache/000-no-updates.json [L]
+
+  RewriteCond expr "(%{QUERY_STRING} =~ m#updated=([^/]+)/([^/]+)/([^/]+)# )" 
+  RewriteRule ^ - [E=vka_month:%2]
+
+  RewriteCond expr "%{ENV:vka_month} -lt 10 && ! %{ENV:vka_month} =~ m#^0#"
+  RewriteRule ^ - [E=vka_month:0%{ENV:vka_month}]
+
+  RewriteCond expr "(%{QUERY_STRING} =~ m#updated=([^/]+)/([^/]+)/([^/]+)# )"
+  RewriteRule ^ - [E=vka_day:%3]
+
+  RewriteCond expr "%{ENV:vka_day} -lt 10 && ! %{ENV:vka_day} =~ m#^0#"
+  RewriteRule ^ - [E=vka_day:0%{ENV:vka_day}]
+
+# Set the type
+  RewriteRule ^api/(.*) - [E=vka_api_req_type:$1]
+
+# Use a cache if we have it
+  RewriteCond expr " -f '%{DOCUMENT_ROOT}/%{ENV:vka_api_cache}/%{ENV:vka_api_req_type}-%{ENV:vka_month}-%{ENV:vka_day}.json'"
+  RewriteRule ^api/(.*) %{ENV:vka_api_cache}/$1-%{ENV:vka_month}-%{ENV:vka_day}.json [L]
+
+  ###########################
+  # End stopgap for VKA-111 #
+  ###########################
+
+  #########################
+  # Start fix for VKA-113 #
+  #########################
+  # Run this rule over and over until there are no longer two double-encoded spaces
+  RewriteRule ^sites/default/files/([^\%]*)\%20(.*\%20.*) "sites/default/files/$1 $2" [N]
+
+  # Works for a single instance of a double-encoded space
+  RewriteRule ^sites/default/files/([^\%]*)\%20(.*) "sites/default/files/$1 $2" [L]
+  #######################
+  # End fix for VKA-113 #
+  #######################
+
+# Pass all requests not referring directly to files in the filesystem to
+  # index.php. Clean URLs are handled in drupal_environment_initialize().
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !=/favicon.ico
+  RewriteRule ^ index.php [L]
+
+  # Rules to correctly serve gzip compressed CSS and JS files.
+  # Requires both mod_rewrite and mod_headers to be enabled.
+  <IfModule mod_headers.c>
+    # Serve gzip compressed CSS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} gzip
+    RewriteCond %{REQUEST_FILENAME}\.gz -s
+    RewriteRule ^(.*)\.css $1\.css\.gz [QSA]
+
+    # Serve gzip compressed JS files if they exist and the client accepts gzip.
+    RewriteCond %{HTTP:Accept-encoding} gzip
+    RewriteCond %{REQUEST_FILENAME}\.gz -s
+    RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
+
+    # Serve correct content types, and prevent mod_deflate double gzip.
+    RewriteRule \.css\.gz$ - [T=text/css,E=no-gzip:1]
+    RewriteRule \.js\.gz$ - [T=text/javascript,E=no-gzip:1]
+
+    <FilesMatch "(\.js\.gz|\.css\.gz)$">
+      # Serve correct encoding type.
+      Header set Content-Encoding gzip
+      # Force proxies to cache gzipped & non-gzipped css/js files separately.
+      Header append Vary Accept-Encoding
+    </FilesMatch>
+  </IfModule>
+</IfModule>
+
+# Add headers to all responses.
+<IfModule mod_headers.c>
+  # Disable content sniffing, since it's an attack vector.
+  Header always set X-Content-Type-Options nosniff
+</IfModule>
