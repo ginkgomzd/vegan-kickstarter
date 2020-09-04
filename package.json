@@ -15,7 +15,7 @@
     "cordova-plugin-file": "^5.0.0",
     "cordova-plugin-file-transfer": "^1.7.0",
     "cordova-plugin-firebase": "git+https://github.com/ginkgostreet/cordova-plugin-firebase.git#vka-1.0.2",
-    "cordova-plugin-inappbrowser": "^1.7.2",
+    "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-spinner-dialog": "git+https://github.com/Paldom/SpinnerDialog.git",
     "cordova-plugin-splashscreen": "^3.2.2",
     "cordova-plugin-statusbar": "^2.3.0",
